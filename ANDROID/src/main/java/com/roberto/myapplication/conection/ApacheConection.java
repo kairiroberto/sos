@@ -43,33 +43,6 @@ public class ApacheConection {
             return sb;
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
-        }
-    }
-
-    public String get(String urlString) {
-        try {
-            URL url = new URL(urlString);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setDoOutput(true);
-            urlConnection.setDoInput(true);
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setRequestProperty("User-Agent", "ANDROID");
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            String sb = "";
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb += line;
-            }
-            bufferedReader.close();
-            urlConnection.disconnect();
-            Log.i("RESULTADO", sb);
-            return sb;
-        } catch (Exception e) {
-            e.printStackTrace();
             Log.e("RESULTADO", e.toString());
             return "";
         }
@@ -117,6 +90,26 @@ public class ApacheConection {
             urlConnection.setRequestProperty("User-Agent", "ANDROID");
             DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
             dataOutputStream.flush();
+            urlConnection.disconnect();
+            Log.i("RESULTADO", urlString);
+            return urlString;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("RESULTADO", e.toString());
+            return "";
+        }
+    }
+
+    public String get(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setDoInput(true);
+            urlConnection.setReadTimeout(10000);
+            urlConnection.setConnectTimeout(15000);
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("User-Agent", "ANDROID");
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String sb = "";
@@ -134,6 +127,5 @@ public class ApacheConection {
             return "";
         }
     }
-
 
 }
