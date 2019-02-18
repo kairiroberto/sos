@@ -110,17 +110,24 @@ public class ApacheConection {
             urlConnection.setConnectTimeout(15000);
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("User-Agent", "ANDROID");
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            String sb = "";
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb += line;
+            urlConnection.connect();
+            int responseCode = urlConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                bufferedReader.close();
+                urlConnection.disconnect();
+                Log.i("RESULTADO", "get: " + sb);
+                return sb.toString();
+            } else {
+                urlConnection.disconnect();
+                Log.i("RESULTADO", "get: " + responseCode);
+                return String.valueOf(responseCode);
             }
-            bufferedReader.close();
-            urlConnection.disconnect();
-            Log.i("RESULTADO", sb);
-            return sb;
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("RESULTADO", e.toString());
