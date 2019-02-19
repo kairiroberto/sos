@@ -38,11 +38,23 @@ public class SosDao {
         }
     }
 
-    public String desc() {
+    public String id(String id) {
         try{
             ApacheConection apacheConection = new ApacheConection();
             StringBuffer sb = new StringBuffer();
+            sb.append("id=" + id);
             String p =  sb.toString();
+            Log.i("SosDao", "id");
+            return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/id.html?" + p);
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String desc() {
+        try{
+            ApacheConection apacheConection = new ApacheConection();
             Log.i("SosDao", "desc");
             return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/desc.html");
         } catch (Exception e) {
@@ -54,10 +66,23 @@ public class SosDao {
     public String asc() {
         try{
             ApacheConection apacheConection = new ApacheConection();
-            StringBuffer sb = new StringBuffer();
-            String p =  sb.toString();
             Log.i("SosDao", "desc");
             return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/asc.html");
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String proximo(String lat, String lon) {
+        try{
+            ApacheConection apacheConection = new ApacheConection();
+            StringBuffer sb = new StringBuffer();
+            sb.append("&lat=" + lat);
+            sb.append("&lon=" + lon);
+            String p =  sb.toString();
+            Log.i("SosDao", "desc");
+            return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/proximo.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;

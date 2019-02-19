@@ -14,6 +14,8 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
         SosDao sosDao = new SosDao();
         sosDao.usuario("352607097641803");
         sosDao.desc();
+        sosDao.proximo("-6.263391", "-36.512363");
+        sosDao.id("52");
         return null;
     }
 
