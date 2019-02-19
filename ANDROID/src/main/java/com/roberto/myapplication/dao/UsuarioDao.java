@@ -41,14 +41,14 @@ public class UsuarioDao {
         }
     }
 
-    public String delete(String id) {
+    public String deleteId(String id) {
         try {
             ApacheConection apacheConection = new ApacheConection();
             StringBuffer sb = new StringBuffer();
             sb.append("id=" + id);
             String p = sb.toString();
-            Log.i("UsuarioDao", "delete: " + "http://sos.eyglys.com.br/index.php/usuario-rest/delete.html?" + p);
-            return apacheConection.delete("http://sos.eyglys.com.br/index.php/usuario-rest/delete.html?" + p);
+            Log.i("UsuarioDao", "delete: " + "http://sos.eyglys.com.br/index.php/usuario-rest/deleteid.html?" + p);
+            return apacheConection.delete("http://sos.eyglys.com.br/index.php/usuario-rest/deleteid.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -60,6 +60,64 @@ public class UsuarioDao {
             ApacheConection apacheConection = new ApacheConection();
             Log.i("UsuarioDao", "get: " + "http://sos.eyglys.com.br/index.php/usuario-rest/get.html");
             return apacheConection.get("http://sos.eyglys.com.br/index.php/usuario-rest/get.html");
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String editativo(String id, String ativo) {
+        try {
+            ApacheConection apacheConection = new ApacheConection();
+            StringBuffer sb = new StringBuffer();
+            sb.append("id=" + id);
+            sb.append("&ativo=" + ativo);
+            String p =  sb.toString();
+            Log.i("UsuarioDao", "put: " + "http://sos.eyglys.com.br/index.php/usuario-rest/editativo.html?" + p);
+            return apacheConection.post("http://sos.eyglys.com.br/index.php/usuario-rest/editativo.html?" + p);
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String editfake(String id, String fake) {
+        try {
+            ApacheConection apacheConection = new ApacheConection();
+            StringBuffer sb = new StringBuffer();
+            sb.append("id=" + id);
+            sb.append("&fake=" + fake);
+            String p =  sb.toString();
+            Log.i("UsuarioDao", "put: " + "http://sos.eyglys.com.br/index.php/usuario-rest/editfake.html?" + p);
+            return apacheConection.post("http://sos.eyglys.com.br/index.php/usuario-rest/editfake.html?" + p);
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String id(String id) {
+        try {
+            ApacheConection apacheConection = new ApacheConection();
+            StringBuffer sb = new StringBuffer();
+            sb.append("id=" + id);
+            String p =  sb.toString();
+            Log.i("UsuarioDao", "get: " + "http://sos.eyglys.com.br/index.php/usuario-rest/id.html?" + p);
+            return apacheConection.get("http://sos.eyglys.com.br/index.php/usuario-rest/id.html?" + p);
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String celular(String celular) {
+        try {
+            ApacheConection apacheConection = new ApacheConection();
+            StringBuffer sb = new StringBuffer();
+            sb.append("celular=" + celular);
+            String p =  sb.toString();
+            Log.i("UsuarioDao", "get: " + "http://sos.eyglys.com.br/index.php/usuario-rest/celular.html?" + p);
+            return apacheConection.get("http://sos.eyglys.com.br/index.php/usuario-rest/celular.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;

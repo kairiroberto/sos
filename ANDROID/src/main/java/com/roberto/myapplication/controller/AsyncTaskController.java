@@ -11,8 +11,9 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        UsuarioDao usuarioDao = new UsuarioDao();
-        usuarioDao.get();
+        SosDao sosDao = new SosDao();
+        sosDao.usuario("352607097641803");
+        sosDao.desc();
         return null;
     }
 
