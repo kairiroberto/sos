@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bCrimeSos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CRIME"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/background_light" />
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bMariaPenhaSos"
+            android:text="MARIA DA PENHA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_purple"
+            android:textColor="@android:color/background_light"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bUrgenciaSos"
+            android:text="URG. HOSPITALAR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:textColor="@android:color/black"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bAcidenteSos"
+            android:text="ACIDENTE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_dark"
+            android:textColor="@android:color/background_light"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bBombeiroSos"
+            android:text="BOMBEIROS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_dark"
+            android:textColor="@android:color/background_light"/>
+
+    </LinearLayout>
+
+</ScrollView>

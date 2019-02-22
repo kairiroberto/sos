@@ -19,6 +19,7 @@ public class ApacheConection {
 
     public String post(String urlString) {
         try {
+            Log.i("POST", urlString);
             URL url = new URL(urlString);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);

@@ -10,6 +10,10 @@ public class SosDao {
         try {
             ApacheConection apacheConection = new ApacheConection();
             StringBuffer sb = new StringBuffer();
+            ocorrencia = ocorrencia.replace(" ", "_")
+                    .replace("Ê", "E")
+                    .replace("É", "E");
+            des = des.replace(" ", "_");
             sb.append("celular=" + celular);
             sb.append("&ocorrencia=" + ocorrencia);
             sb.append("&lat=" + lat);
@@ -18,6 +22,48 @@ public class SosDao {
             String p =  sb.toString();
             Log.i("SosDao", "add");
             return apacheConection.post("http://sos.eyglys.com.br/index.php/sos-rest/add.html?" + p);
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String editcancelar(String id) {
+        try {
+            ApacheConection apacheConection = new ApacheConection();
+            StringBuffer sb = new StringBuffer();
+            sb.append("id=" + id);
+            String p =  sb.toString();
+            Log.i("SosDao", "edit");
+            return apacheConection.put("http://sos.eyglys.com.br/index.php/sos-rest/editcancelar.html?" + p);
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String editatendido(String id) {
+        try {
+            ApacheConection apacheConection = new ApacheConection();
+            StringBuffer sb = new StringBuffer();
+            sb.append("id=" + id);
+            String p =  sb.toString();
+            Log.i("SosDao", "edit");
+            return apacheConection.put("http://sos.eyglys.com.br/index.php/sos-rest/editatendido.html?" + p);
+        } catch (Exception e) {
+            Log.e("RESULTADO", e.toString());
+            return null;
+        }
+    }
+
+    public String editvisualizado(String id) {
+        try {
+            ApacheConection apacheConection = new ApacheConection();
+            StringBuffer sb = new StringBuffer();
+            sb.append("id=" + id);
+            String p =  sb.toString();
+            Log.i("SosDao", "edit");
+            return apacheConection.put("http://sos.eyglys.com.br/index.php/sos-rest/editvisualizado.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
