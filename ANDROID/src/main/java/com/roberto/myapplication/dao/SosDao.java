@@ -20,8 +20,8 @@ public class SosDao {
             sb.append("&lon=" + lon);
             sb.append("&des=" + des);
             String p =  sb.toString();
-            Log.i("SosDao", "add");
-            return apacheConection.post("http://sos.eyglys.com.br/index.php/sos-rest/add.html?" + p);
+            Log.i("SosDao", "add: " + ApacheConection.urlsos + "sos-rest/add.html?" + p);
+            return apacheConection.post(ApacheConection.urlsos + "sos-rest/add.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -35,7 +35,7 @@ public class SosDao {
             sb.append("id=" + id);
             String p =  sb.toString();
             Log.i("SosDao", "edit");
-            return apacheConection.put("http://sos.eyglys.com.br/index.php/sos-rest/editcancelar.html?" + p);
+            return apacheConection.put(ApacheConection.urlsos + "sos-rest/editcancelar.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -49,7 +49,7 @@ public class SosDao {
             sb.append("id=" + id);
             String p =  sb.toString();
             Log.i("SosDao", "edit");
-            return apacheConection.put("http://sos.eyglys.com.br/index.php/sos-rest/editatendido.html?" + p);
+            return apacheConection.put(ApacheConection.urlsos + "sos-rest/editatendido.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -63,7 +63,7 @@ public class SosDao {
             sb.append("id=" + id);
             String p =  sb.toString();
             Log.i("SosDao", "edit");
-            return apacheConection.put("http://sos.eyglys.com.br/index.php/sos-rest/editvisualizado.html?" + p);
+            return apacheConection.put(ApacheConection.urlsos + "sos-rest/editvisualizado.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -77,7 +77,7 @@ public class SosDao {
             sb.append("celular=" + celular);
             String p =  sb.toString();
             Log.i("SosDao", "usuario");
-            return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/usuario.html?" + p);
+            return apacheConection.get(ApacheConection.urlsos + "sos-rest/usuario.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -91,7 +91,7 @@ public class SosDao {
             sb.append("id=" + id);
             String p =  sb.toString();
             Log.i("SosDao", "id");
-            return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/id.html?" + p);
+            return apacheConection.get(ApacheConection.urlsos + "sos-rest/id.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -102,7 +102,7 @@ public class SosDao {
         try{
             ApacheConection apacheConection = new ApacheConection();
             Log.i("SosDao", "desc");
-            return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/desc.html");
+            return apacheConection.get(ApacheConection.urlsos + "sos-rest/desc.html");
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -113,7 +113,7 @@ public class SosDao {
         try{
             ApacheConection apacheConection = new ApacheConection();
             Log.i("SosDao", "desc");
-            return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/asc.html");
+            return apacheConection.get(ApacheConection.urlsos + "sos-rest/asc.html");
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;
@@ -128,7 +128,7 @@ public class SosDao {
             sb.append("&lon=" + lon);
             String p =  sb.toString();
             Log.i("SosDao", "desc");
-            return apacheConection.get("http://sos.eyglys.com.br/index.php/sos-rest/proximo.html?" + p);
+            return apacheConection.get(ApacheConection.urlsos + "sos-rest/proximo.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
             return null;

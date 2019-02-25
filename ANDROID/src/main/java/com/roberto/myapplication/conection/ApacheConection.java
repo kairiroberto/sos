@@ -17,6 +17,9 @@ import java.net.URL;
 
 public class ApacheConection {
 
+    //public static final String urlsos = "http://sos.eyglys.com.br/index.php/";
+    public static final String urlsos = "http://192.168.1.189/sos/web/index.php/";
+
     public String post(String urlString) {
         try {
             Log.i("POST", urlString);

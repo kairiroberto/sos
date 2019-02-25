@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
         int id = sharedPreferences.getInt("id", 0);
 
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
             } else {
@@ -45,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        Toast.makeText(this, tm.getImei(), Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "" + id, Toast.LENGTH_LONG).show();
         if (id == 0) {
-            AsyncTaskController asyncTaskController = new AsyncTaskController(this, "usuario", "inserir");
-            asyncTaskController.execute(tm.getImei());
+            TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                Toast.makeText(this, tm.getImei(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "" + id, Toast.LENGTH_LONG).show();
+                AsyncTaskController asyncTaskController = new AsyncTaskController(this, "usuario", "inserir");
+                asyncTaskController.execute(tm.getImei());
         }
 
         Intent i = new Intent(this, MenuActivity.class);

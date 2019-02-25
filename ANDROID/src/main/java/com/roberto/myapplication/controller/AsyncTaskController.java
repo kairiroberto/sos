@@ -38,6 +38,8 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
         UsuarioDao usuarioDao = new UsuarioDao();
         ResidenciaDao residenciaDao = new ResidenciaDao();
 
+        Log.i("AsyncTaskController", tabela + acao);
+
         if (tabela.equals("sos")) {
             if (acao.equals("inserir")) {
                 return sosDao.add(strings[0], strings[1], strings[2], strings[3], strings[4]);
