@@ -41,26 +41,28 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".MenuActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".SosMenuActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".SosAddActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".SosListActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".ResidenciaListActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".UserAddActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".MapsActivity2"
             android:label="@string/app_name"></activity>
-
     </application>
 
 </manifest>

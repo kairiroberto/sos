@@ -36,7 +36,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.bSosMenu) {
             i = new Intent(this, SosMenuActivity.class);
         } else if (v.getId() == R.id.bMapaMenu) {
-            i = new Intent(this, MapsActivity.class);
+            i = new Intent(this, MapsActivity2.class);
         } else if (v.getId() == R.id.bMeusSosMenu) {
             i = new Intent(this, SosListActivity.class);
         } else if (v.getId() == R.id.bResidenciaMenu) {

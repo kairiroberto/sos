@@ -34,7 +34,7 @@ public class SosDao {
             StringBuffer sb = new StringBuffer();
             sb.append("id=" + id);
             String p =  sb.toString();
-            Log.i("SosDao", "edit");
+            Log.i("SosDao", "edit: " + ApacheConection.urlsos + "sos-rest/editcancelar.html?" + p);
             return apacheConection.put(ApacheConection.urlsos + "sos-rest/editcancelar.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
@@ -48,7 +48,7 @@ public class SosDao {
             StringBuffer sb = new StringBuffer();
             sb.append("id=" + id);
             String p =  sb.toString();
-            Log.i("SosDao", "edit");
+            Log.i("SosDao", "edit: " + ApacheConection.urlsos + "sos-rest/editatendido.html?" + p);
             return apacheConection.put(ApacheConection.urlsos + "sos-rest/editatendido.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
@@ -62,7 +62,7 @@ public class SosDao {
             StringBuffer sb = new StringBuffer();
             sb.append("id=" + id);
             String p =  sb.toString();
-            Log.i("SosDao", "edit");
+            Log.i("SosDao", "edit: " + ApacheConection.urlsos + "sos-rest/editvisualizado.html?" + p);
             return apacheConection.put(ApacheConection.urlsos + "sos-rest/editvisualizado.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
@@ -76,7 +76,7 @@ public class SosDao {
             StringBuffer sb = new StringBuffer();
             sb.append("celular=" + celular);
             String p =  sb.toString();
-            Log.i("SosDao", "usuario");
+            Log.i("SosDao", "usuario: " + ApacheConection.urlsos + "sos-rest/usuario.html?" + p);
             return apacheConection.get(ApacheConection.urlsos + "sos-rest/usuario.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
@@ -90,7 +90,7 @@ public class SosDao {
             StringBuffer sb = new StringBuffer();
             sb.append("id=" + id);
             String p =  sb.toString();
-            Log.i("SosDao", "id");
+            Log.i("SosDao", "id: " + ApacheConection.urlsos + "sos-rest/id.html?" + p);
             return apacheConection.get(ApacheConection.urlsos + "sos-rest/id.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
@@ -101,7 +101,7 @@ public class SosDao {
     public String desc() {
         try{
             ApacheConection apacheConection = new ApacheConection();
-            Log.i("SosDao", "desc");
+            Log.i("SosDao", "desc: " + ApacheConection.urlsos + "sos-rest/desc.html");
             return apacheConection.get(ApacheConection.urlsos + "sos-rest/desc.html");
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
@@ -112,7 +112,7 @@ public class SosDao {
     public String asc() {
         try{
             ApacheConection apacheConection = new ApacheConection();
-            Log.i("SosDao", "desc");
+            Log.i("SosDao", "desc: " + ApacheConection.urlsos + "sos-rest/asc.html");
             return apacheConection.get(ApacheConection.urlsos + "sos-rest/asc.html");
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
@@ -127,7 +127,7 @@ public class SosDao {
             sb.append("&lat=" + lat);
             sb.append("&lon=" + lon);
             String p =  sb.toString();
-            Log.i("SosDao", "desc");
+            Log.i("SosDao", "desc: " + ApacheConection.urlsos + "sos-rest/proximo.html?" + p);
             return apacheConection.get(ApacheConection.urlsos + "sos-rest/proximo.html?" + p);
         } catch (Exception e) {
             Log.e("RESULTADO", e.toString());
