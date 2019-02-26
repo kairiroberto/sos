@@ -30,38 +30,17 @@ import com.roberto.myapplication.model.Sos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
     private Double latitudesos;
     private Double longitudesos;
-    LocationListener locationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-            if (location != null) {
-
-            }
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -92,12 +71,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                                 Manifest.permission.ACCESS_COARSE_LOCATION,
                                 Manifest.permission.ACCESS_FINE_LOCATION},
                         2);
-            }
-        } else {
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            } else {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
             }
         }
         mMap.setMyLocationEnabled(true);
@@ -133,12 +106,12 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                         .title("SOS " + sos.getIdsos())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             }
-            mMap.setOnMarkerClickListener(this);
+            mMap.setOnInfoWindowClickListener(this);
         }
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
-        return false;
+    public void onInfoWindowClick(Marker marker) {
+        Toast.makeText(MapsActivity2.this, marker.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }
