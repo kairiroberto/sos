@@ -2,6 +2,7 @@ package com.roberto.myapplication;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -10,6 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,7 +30,7 @@ import com.roberto.myapplication.model.Sos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -106,20 +109,36 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             LatLng ponto = new LatLng(lat, lng);
             if (sos.getOcorrencia() == 1) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(ponto).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        .position(ponto)
+                        .title("SOS " + sos.getIdsos())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             } else if (sos.getOcorrencia() == 2) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(ponto).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                        .position(ponto)
+                        .title("SOS " + sos.getIdsos())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
             } else if (sos.getOcorrencia() == 4) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(ponto).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                        .position(ponto)
+                        .title("SOS " + sos.getIdsos())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
             } else if (sos.getOcorrencia() == 5) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(ponto).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        .position(ponto)
+                        .title("SOS " + sos.getIdsos())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             } else if (sos.getOcorrencia() == 6) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(ponto).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        .position(ponto)
+                        .title("SOS " + sos.getIdsos())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             }
+            mMap.setOnMarkerClickListener(this);
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
     }
 }

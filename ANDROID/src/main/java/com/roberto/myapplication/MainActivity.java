@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 asyncTaskController.execute(tm.getImei());
         }
 
+        Toast.makeText(this, "Usuário: " + id, Toast.LENGTH_LONG).show();
+
         Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);
     }
