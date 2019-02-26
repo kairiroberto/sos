@@ -43,6 +43,8 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
         if (tabela.equals("sos")) {
             if (acao.equals("inserir")) {
                 return sosDao.add(strings[0], strings[1], strings[2], strings[3], strings[4]);
+            } else if (acao.equals("listar")) {
+                return sosDao.desc();
             } else if (acao.equals("alterar")) {
                 return null;
             }
@@ -68,10 +70,9 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
     }
 
     private void converteJSONfromString(String s) {
-        Log.i("converteJSONfromString", s);
         MainActivity.sosMain.clear();
-        MainActivity.usuariosMain.clear();
         MainActivity.sosUsuarioMain.clear();
+        MainActivity.usuariosMain.clear();
         try {
             if (!s.contains("[") && !s.contains("]")) {
                 JSONObject jsonObject = new JSONObject(s);
@@ -83,7 +84,6 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
                     if (tabela.equals("usuario")) {
                         addMainListUsuario(jsonObject);
                     }
-
                     else if (tabela.equals("sos")) {
                         if (acao.equals("inserir")) {
                             addMainListSos(jsonObject);
@@ -112,8 +112,10 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
             editor.putString("cidade", jsonObject.getString("cidade_uf_uso"));
             editor.putString("email", jsonObject.getString("email_uso"));
             editor.commit();
+            imprimir("Usuário salvo localmente!");
         } catch (JSONException e) {
             e.printStackTrace();
+            imprimir(e.toString());
         }
     }
 
@@ -122,8 +124,8 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
             Usuario usuario = new Usuario();
             usuario.setIdusuario(Integer.parseInt(jsonObject.getString("idusuario")));
             usuario.setCelular_usu(jsonObject.getString("celular_usu"));
-            MainActivity.usuariosMain.clear();
             MainActivity.usuariosMain.add(usuario);
+            imprimir("addMainListUsuario: " + MainActivity.usuariosMain.size());
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addMainListUsuario: " + e.toString());
@@ -141,8 +143,8 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
             sos.setLatitudeSos(Double.parseDouble(jsonObject.getString("latitude_sos")));
             sos.setLongitudeSos(Double.parseDouble(jsonObject.getString("longitude_sos")));
             sos.setDescricao_sos(jsonObject.getString("descricao_sos"));
-            MainActivity.sosMain.clear();
             MainActivity.sosMain.add(sos);
+            imprimir("addMainListSos: " + MainActivity.sosMain.size());
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addMainListSos: " + e.toString());
@@ -160,8 +162,8 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
             sos.setLatitudeSos(Double.parseDouble(jsonObject.getString("latitude_sos")));
             sos.setLongitudeSos(Double.parseDouble(jsonObject.getString("longitude_sos")));
             sos.setDescricao_sos(jsonObject.getString("descricao_sos"));
-            MainActivity.sosUsuarioMain.clear();
             MainActivity.sosUsuarioMain.add(sos);
+            imprimir("addListSosHistorico: " + MainActivity.sosUsuarioMain.size());
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addListSosHistorico: " + e.toString());
