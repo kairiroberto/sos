@@ -25,6 +25,12 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
     private Context context;
     private String tabela;
     private String acao;
+    private final String USUARIO = "usuario";
+    private final String SOS = "sos";
+    private final String INSERIR = "inserir";
+    private final String ALTERAR = "alterar";
+    private final String LISTAR = "listar";
+    private final String LISTARUSUARIO = "listar_usuario";
 
     public AsyncTaskController(Context context, String tabela, String acao) {
         this.context = context;
@@ -40,20 +46,20 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
 
         Log.i("AsyncTaskController", tabela + acao);
 
-        if (tabela.equals("sos")) {
-            if (acao.equals("inserir")) {
+        if (tabela.equals(SOS)) {
+            if (acao.equals(INSERIR)) {
                 return sosDao.add(strings[0], strings[1], strings[2], strings[3], strings[4]);
-            } else if (acao.equals("listar")) {
+            } else if (acao.equals(LISTAR)) {
                 return sosDao.desc();
-            } else if (acao.equals("alterar")) {
+            } else if (acao.equals(ALTERAR)) {
                 return null;
             }
         }
 
-        else if (tabela.equals("usuario")) {
-            if (acao.equals("inserir")) {
+        else if (tabela.equals(USUARIO)) {
+            if (acao.equals(INSERIR)) {
                 return usuarioDao.add(strings[0]);
-            } else if (acao.equals("alterar")) {
+            } else if (acao.equals(ALTERAR)) {
                 return null;
             }
         }
@@ -76,19 +82,25 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
         try {
             if (!s.contains("[") && !s.contains("]")) {
                 JSONObject jsonObject = new JSONObject(s);
-                salvarSharedPreferences(jsonObject);
+                if (tabela.equals(USUARIO)) {
+                    if (acao.equals(INSERIR) || acao.equals(ALTERAR)) {
+                        salvarSharedPreferences(jsonObject);
+                    }
+                }
             } else {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if (tabela.equals("usuario")) {
+                    if (tabela.equals(USUARIO)) {
                         addMainListUsuario(jsonObject);
                     }
-                    else if (tabela.equals("sos")) {
-                        if (acao.equals("inserir")) {
+                    else if (tabela.equals(SOS)) {
+                        if (acao.equals(INSERIR)) {
                             addMainListSos(jsonObject);
-                        } else if (acao.equals("listar")) {
+                        } else if (acao.equals(LISTAR)) {
                             addMainListSos(jsonObject);
+                        } else if (acao.equals(LISTARUSUARIO)) {
+                            addListSosHistorico(jsonObject);
                         }
                     }
                 }
@@ -115,7 +127,7 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
             imprimir("Usuário salvo localmente!");
         } catch (JSONException e) {
             e.printStackTrace();
-            imprimir(e.toString());
+            imprimir("salvarSharedPreferences: " + e.toString());
         }
     }
 

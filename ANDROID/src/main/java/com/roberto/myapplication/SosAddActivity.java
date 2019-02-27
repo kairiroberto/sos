@@ -147,15 +147,19 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
 
             SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat sdfHora = new SimpleDateFormat("H:m:s");
-            AsyncTaskController asyncTaskController = new AsyncTaskController(this, tabela, acao);
-            asyncTaskController.execute(
-                    celular,//1
-                    ocorrencia,//2
-                    latitudesos,//3
-                    longitudesos,//4
-                    etLocalSos.getText().toString() + "_" + etDescricaoSos.getText().toString()//5
-            );
-            finish();
+            if (celular.equals("") || latitudesos == null || longitudesos == null) {
+                Toast.makeText(this, "Aguarde o carregamento de todos os dados!", Toast.LENGTH_LONG).show();
+            } else {
+                AsyncTaskController asyncTaskController = new AsyncTaskController(this, tabela, acao);
+                asyncTaskController.execute(
+                        celular,//1
+                        ocorrencia,//2
+                        latitudesos,//3
+                        longitudesos,//4
+                        etLocalSos.getText().toString() + "_" + etDescricaoSos.getText().toString()//5
+                );
+                finish();
+            }
         } else if (v.getId() == R.id.bCancelarSos) {
             finish();
         }
