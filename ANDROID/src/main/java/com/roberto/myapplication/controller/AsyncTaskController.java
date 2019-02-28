@@ -25,11 +25,14 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
     private Context context;
     private String tabela;
     private String acao;
+
     private final String USUARIO = "usuario";
     private final String SOS = "sos";
     private final String INSERIR = "inserir";
     private final String ALTERAR = "alterar";
     private final String LISTAR = "listar";
+    private final String SOSATENDIDO = "sosatendido";
+    private final String SOSVISUALIZADO = "sosvisualizado";
     private final String LISTARUSUARIO = "listar_usuario";
 
     public AsyncTaskController(Context context, String tabela, String acao) {
@@ -51,6 +54,10 @@ public class AsyncTaskController extends AsyncTask<String, String, String> {
                 return sosDao.add(strings[0], strings[1], strings[2], strings[3], strings[4]);
             } else if (acao.equals(LISTAR)) {
                 return sosDao.desc();
+            } else if (acao.equals(SOSATENDIDO)) {
+                return sosDao.editatendido(strings[0]);
+            } else if (acao.equals(SOSVISUALIZADO)) {
+                return sosDao.editvisualizado(strings[0]);
             } else if (acao.equals(ALTERAR)) {
                 return null;
             }

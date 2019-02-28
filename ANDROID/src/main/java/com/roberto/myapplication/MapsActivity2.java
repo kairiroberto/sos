@@ -1,39 +1,27 @@
 package com.roberto.myapplication;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.roberto.myapplication.controller.AsyncTaskController;
 import com.roberto.myapplication.model.Sos;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
@@ -41,7 +29,15 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private LocationManager locationManager;
     private Double latitudesos;
     private Double longitudesos;
-    private Context context;
+
+    private final String USUARIO = "usuario";
+    private final String SOS = "sos";
+    private final String INSERIR = "inserir";
+    private final String ALTERAR = "alterar";
+    private final String LISTAR = "listar";
+    private final String SOSATENDIDO = "sosatendido";
+    private final String SOSVISUALIZADO = "sosvisualizado";
+    private final String LISTARUSUARIO = "listar_usuario";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +77,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         }
         mMap.setMyLocationEnabled(true);
-        AsyncTaskController asyncTaskController = new AsyncTaskController(this, "sos", "listar");
+        AsyncTaskController asyncTaskController = new AsyncTaskController(this, SOS, LISTAR);
         asyncTaskController.execute();
         for (Sos sos : MainActivity.sosMain) {
             Double lat = sos.getLatitudeSos();
@@ -90,41 +86,54 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             if (sos.getOcorrencia() == 1) {
                 mMap.addMarker(new MarkerOptions()
                         .position(ponto)
-                        .title("SOS " + sos.getIdsos())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        .title(String.valueOf(sos.getIdsos()))
+                        .icon(BitmapDescriptorFactory.defaultMarker(240)));
             } else if (sos.getOcorrencia() == 2) {
                 mMap.addMarker(new MarkerOptions()
                         .position(ponto)
-                        .title("SOS " + sos.getIdsos())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                        .title(String.valueOf(sos.getIdsos()))
+                        .icon(BitmapDescriptorFactory.defaultMarker(300)));
+            } else if (sos.getOcorrencia() == 3) {
+                float[] cor = new float[3];
+                Color.colorToHSV(Color.parseColor("#FFFFFF"), cor);
+                float cor2 = BitmapDescriptorFactory.HUE_AZURE;
+                mMap.addMarker(new MarkerOptions()
+                        .position(ponto)
+                        .title(String.valueOf(sos.getIdsos()))
+                        //.icon(BitmapDescriptorFactory.defaultMarker(cor[0])));
+                        .icon(BitmapDescriptorFactory.defaultMarker(120)));
             } else if (sos.getOcorrencia() == 4) {
                 mMap.addMarker(new MarkerOptions()
                         .position(ponto)
-                        .title("SOS " + sos.getIdsos())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                        .title(String.valueOf(sos.getIdsos()))
+                        .icon(BitmapDescriptorFactory.defaultMarker(180)));
             } else if (sos.getOcorrencia() == 5) {
                 mMap.addMarker(new MarkerOptions()
                         .position(ponto)
-                        .title("SOS " + sos.getIdsos())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        .title(String.valueOf(sos.getIdsos()))
+                        .icon(BitmapDescriptorFactory.defaultMarker(30)));
             } else if (sos.getOcorrencia() == 6) {
                 mMap.addMarker(new MarkerOptions()
                         .position(ponto)
-                        .title("SOS " + sos.getIdsos())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        .title(String.valueOf(sos.getIdsos()))
+                        .icon(BitmapDescriptorFactory.defaultMarker(30)));
             }
             mMap.setOnInfoWindowClickListener(this);
         }
     }
 
     @Override
-    public void onInfoWindowClick(Marker marker) {
+    public void onInfoWindowClick(final Marker marker) {
+        AsyncTaskController asyncTaskController = new AsyncTaskController(MapsActivity2.this, SOS, SOSVISUALIZADO);
+        asyncTaskController.execute(marker.getTitle());
+        Toast.makeText(MapsActivity2.this, "SOS VISUALIZADO: " + marker.getTitle(), Toast.LENGTH_LONG).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(marker.getTitle());
+        builder.setTitle("SOS " + marker.getTitle());
         builder.setMessage("Deseja atender a ocorrência?");
         builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MapsActivity2.this, "SOS ATENDIDO", Toast.LENGTH_LONG).show();
                 Uri uri = Uri.parse("tel:190");
                 Intent intent = new Intent(Intent.ACTION_DIAL, uri);
                 startActivity(intent);
@@ -133,7 +142,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MapsActivity2.this, "FABRICANDO O METÓDO", Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsActivity2.this, "SOS NÃO ATENDIDO", Toast.LENGTH_LONG).show();
             }
         });
         AlertDialog dialog = builder.create();
