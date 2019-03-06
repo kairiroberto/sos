@@ -2,6 +2,7 @@ package com.roberto.myapplication;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,8 +21,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.roberto.myapplication.controller.AsyncTaskController;
+import com.roberto.myapplication.controller.AsyncDaoController;
+import com.roberto.myapplication.controller.AsyncDaoController;
 import com.roberto.myapplication.model.Sos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
@@ -30,14 +35,13 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private Double latitudesos;
     private Double longitudesos;
 
-    private final String USUARIO = "usuario";
+    private List<Sos> lista = new ArrayList<Sos>();
+
     private final String SOS = "sos";
-    private final String INSERIR = "inserir";
-    private final String ALTERAR = "alterar";
     private final String LISTAR = "listar";
-    private final String SOSATENDIDO = "sosatendido";
-    private final String SOSVISUALIZADO = "sosvisualizado";
-    private final String LISTARUSUARIO = "listar_usuario";
+    private final String SOS_ATENDIDO = "sosAtendido";
+    private final String SOS_VISUALIZADO = "sosVisualizado";
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +52,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        context = this;
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -77,59 +72,65 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         }
         mMap.setMyLocationEnabled(true);
-        AsyncTaskController asyncTaskController = new AsyncTaskController(this, SOS, LISTAR);
-        asyncTaskController.execute();
+        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
+        asyncDaoController.execute();
         for (Sos sos : MainActivity.sosMain) {
+            lista.add(sos);
             Double lat = sos.getLatitudeSos();
             Double lng = sos.getLongitudeSos();
             LatLng ponto = new LatLng(lat, lng);
-            if (sos.getOcorrencia() == 1) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(ponto)
-                        .title(String.valueOf(sos.getIdsos()))
-                        .icon(BitmapDescriptorFactory.defaultMarker(240)));
-            } else if (sos.getOcorrencia() == 2) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(ponto)
-                        .title(String.valueOf(sos.getIdsos()))
-                        .icon(BitmapDescriptorFactory.defaultMarker(300)));
-            } else if (sos.getOcorrencia() == 3) {
-                float[] cor = new float[3];
-                Color.colorToHSV(Color.parseColor("#FFFFFF"), cor);
-                float cor2 = BitmapDescriptorFactory.HUE_AZURE;
-                mMap.addMarker(new MarkerOptions()
-                        .position(ponto)
-                        .title(String.valueOf(sos.getIdsos()))
-                        //.icon(BitmapDescriptorFactory.defaultMarker(cor[0])));
-                        .icon(BitmapDescriptorFactory.defaultMarker(120)));
-            } else if (sos.getOcorrencia() == 4) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(ponto)
-                        .title(String.valueOf(sos.getIdsos()))
-                        .icon(BitmapDescriptorFactory.defaultMarker(180)));
-            } else if (sos.getOcorrencia() == 5) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(ponto)
-                        .title(String.valueOf(sos.getIdsos()))
-                        .icon(BitmapDescriptorFactory.defaultMarker(30)));
-            } else if (sos.getOcorrencia() == 6) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(ponto)
-                        .title(String.valueOf(sos.getIdsos()))
-                        .icon(BitmapDescriptorFactory.defaultMarker(30)));
-            }
-            mMap.setOnInfoWindowClickListener(this);
+            adicionarMarcador(mMap, ponto, sos);
         }
+        mMap.setOnInfoWindowClickListener(this);
+    }
+
+    private void adicionarMarcador(GoogleMap mMap, LatLng ponto, Sos sos) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(ponto);
+        markerOptions.title(String.valueOf(sos.getIdsos()));
+        if (sos.getOcorrencia() == 1) {
+            markerOptions.snippet("CRIME");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(240));
+        } else if (sos.getOcorrencia() == 2) {
+            markerOptions.snippet("MARIA DA PENHA");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(300));
+        } else if (sos.getOcorrencia() == 3) {
+            markerOptions.snippet("ROUBO");
+            float[] cor = new float[3];
+            Color.colorToHSV(Color.parseColor("#FFFFFF"), cor);
+            float cor2 = BitmapDescriptorFactory.HUE_AZURE;
+            //.icon(BitmapDescriptorFactory.defaultMarker(cor[0])));
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(120));
+        } else if (sos.getOcorrencia() == 4) {
+            markerOptions.snippet("URG. HOSPITALAR");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(180));
+        } else if (sos.getOcorrencia() == 5) {
+            markerOptions.snippet("ACIDENTE");
+        } else if (sos.getOcorrencia() == 6) {
+            markerOptions.snippet("BOMBEIROS");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(30));
+        }
+        Marker marker = mMap.addMarker(markerOptions);
     }
 
     @Override
     public void onInfoWindowClick(final Marker marker) {
-        AsyncTaskController asyncTaskController = new AsyncTaskController(MapsActivity2.this, SOS, SOSVISUALIZADO);
-        asyncTaskController.execute(marker.getTitle());
-        Toast.makeText(MapsActivity2.this, "SOS VISUALIZADO: " + marker.getTitle(), Toast.LENGTH_LONG).show();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AsyncDaoController asyncDaoController = new AsyncDaoController(MapsActivity2.this, SOS, SOS_VISUALIZADO);
+        asyncDaoController.execute(marker.getTitle());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
         builder.setTitle("SOS " + marker.getTitle());
-        builder.setMessage("Deseja atender a ocorrência?");
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("Deseja atender a ocorrência?\n");
+        for (Sos s : lista) {
+            if (s.getIdsos() == Integer.parseInt(marker.getTitle())) {
+                String local = s.getDescricao_sos().substring(0, s.getDescricao_sos().indexOf("_"));
+                String descricao = s.getDescricao_sos().substring(s.getDescricao_sos().indexOf("_")).replace("_", " ");
+                stringBuffer.append("Descrição: " + local + "(local) - " + descricao);
+            }
+        }
+        builder.setMessage(stringBuffer);
+
         builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -147,5 +148,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+
     }
 }

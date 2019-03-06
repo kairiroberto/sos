@@ -18,7 +18,7 @@ import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
 import com.roberto.myapplication.conection.ApacheConection;
-import com.roberto.myapplication.controller.AsyncTaskController;
+import com.roberto.myapplication.controller.AsyncDaoController;
 import com.roberto.myapplication.model.Sos;
 import com.roberto.myapplication.model.Usuario;
 
@@ -29,7 +29,16 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<Usuario> usuariosMain = new ArrayList<Usuario>();
     public static List<Sos> sosMain = new ArrayList<Sos>();
+    public static List<Sos> sosVisualizadoMain = new ArrayList<Sos>();
     public static List<Sos> sosUsuarioMain = new ArrayList<Sos>();
+    private final String USUARIO = "usuario";
+    private final String SOS = "sos";
+    private final String INSERIR = "inserir";
+    private final String ALTERAR = "alterar";
+    private final String LISTAR = "listar";
+    private final String SOS_ATENDIDO = "sosAtendido";
+    private final String SOS_VISUALIZADO = "sosVisualizado";
+    private final String USUARIO_LISTAR = "usuarioListar";
     private int id = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -58,9 +67,12 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == 0) {
             TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            AsyncTaskController asyncTaskController = new AsyncTaskController(this, "usuario", "inserir");
-            asyncTaskController.execute(tm.getImei());
+            AsyncDaoController asyncDaoController = new AsyncDaoController(this, USUARIO, INSERIR);
+            asyncDaoController.execute(tm.getImei());
         }
+
+        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
+        asyncDaoController.execute();
 
         Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);

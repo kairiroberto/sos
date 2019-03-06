@@ -18,7 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.roberto.myapplication.controller.AsyncTaskController;
+import com.roberto.myapplication.controller.AsyncDaoController;
+import com.roberto.myapplication.controller.AsyncDaoController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,8 +37,8 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
     private String latitudesos;
     private String longitudesos;
     private String ocorrencia;
-    private final String tabela = "sos";
-    private final String acao = "inserir";
+    private final String SOS = "sos";
+    private final String INSERIR = "inserir";
     private LocationManager locationManager;
 
     LocationListener locationListener = new LocationListener() {
@@ -150,8 +151,8 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
             if (celular.equals("") || latitudesos == null || longitudesos == null) {
                 Toast.makeText(this, "Aguarde o carregamento de todos os dados!", Toast.LENGTH_LONG).show();
             } else {
-                AsyncTaskController asyncTaskController = new AsyncTaskController(this, tabela, acao);
-                asyncTaskController.execute(
+                AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, INSERIR);
+                asyncDaoController.execute(
                         celular,//1
                         ocorrencia,//2
                         latitudesos,//3
