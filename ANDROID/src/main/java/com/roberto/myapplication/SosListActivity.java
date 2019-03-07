@@ -25,8 +25,8 @@ import java.util.List;
 public class SosListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView lvSosUsuario;
-    private List<Sos> lista = new ArrayList<Sos>();
     private ArrayAdapter<Sos> arrayAdapter;
+    private String celular = "";
 
     private final String SOS = "sos";
     private final String SOS_USUARIO = "sosUsuario";
@@ -39,12 +39,8 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_sos_list);
         lvSosUsuario = (ListView) findViewById(R.id.lvSosUsuario);
 
-        for (Sos s : MainActivity.sosUsuarioMain) {
-            lista.add(s);
-        }
-
         SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
-        String celular = sharedPreferences.getString("celular", " ");
+        celular = sharedPreferences.getString("celular", " ");
 
         AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, SOS_USUARIO);
         asyncDaoController.execute(celular);
@@ -52,7 +48,7 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
         arrayAdapter = new ArrayAdapter<Sos>(
                 this,
                 android.R.layout.simple_list_item_1,
-                lista
+                MainActivity.sosUsuarioMain
         ){
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
@@ -63,7 +59,7 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
                 }
                 else
                 {
-                    view.setBackgroundColor(Color.parseColor("#ff8080"));
+                    view.setBackgroundColor(Color.parseColor("#ffffff"));
                 }
                 return view;
             }
@@ -74,8 +70,9 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        final Sos sos = MainActivity.sosUsuarioMain.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("SOS " + lista.get(position).getIdsos());
+        builder.setTitle("SOS " + sos.getIdsos());
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Deseja cancelar ou encerrar a ocorrência?\n");
         builder.setMessage(stringBuffer);
@@ -83,19 +80,26 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 AsyncDaoController asyncDaoController = new AsyncDaoController(SosListActivity.this, SOS, SOS_ATENDIDO);
-                asyncDaoController.execute(String.valueOf(lista.get(position).getIdsos()));
+                asyncDaoController.execute(String.valueOf(sos.getIdsos()));
+                AsyncDaoController asyncDaoController2 = new AsyncDaoController(SosListActivity.this, SOS, SOS_USUARIO);
+                asyncDaoController2.execute(celular);
+                MainActivity.sosUsuarioMain.remove(sos);
+                arrayAdapter.notifyDataSetChanged();
             }
         });
         builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 AsyncDaoController asyncDaoController = new AsyncDaoController(SosListActivity.this, SOS, SOS_CENCELAR);
-                asyncDaoController.execute(String.valueOf(lista.get(position).getIdsos()));
+                asyncDaoController.execute(String.valueOf(sos.getIdsos()));
+                AsyncDaoController asyncDaoController2 = new AsyncDaoController(SosListActivity.this, SOS, SOS_USUARIO);
+                asyncDaoController2.execute(celular);
+                MainActivity.sosUsuarioMain.remove(sos);
+                arrayAdapter.notifyDataSetChanged();
             }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-        arrayAdapter.notifyDataSetChanged();
     }
 
 }
