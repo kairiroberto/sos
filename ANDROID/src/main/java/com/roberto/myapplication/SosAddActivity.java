@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -33,15 +34,19 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
     private EditText etLocalSos;
     private EditText etDescricaoSos;
     private Button bSalvarSos;
+    private Button bLigarSos;
     private Button bCancelarSos;
     private String latitudesos;
     private String longitudesos;
     private String ocorrencia;
+
     private final String SOS = "sos";
     private final String INSERIR = "inserir";
-    private LocationManager locationManager;
+    private final String LISTAR = "listar";
+    private final String SOS_USUARIO = "sosUsuario";
 
-    LocationListener locationListener = new LocationListener() {
+    private LocationManager locationManager;
+    private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
             if (location != null) {
@@ -78,7 +83,9 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
             Date data1 = new Date();
-            String data = "" + data1.getDate() + "/" + data1.getMonth() + "/" + data1.getYear();
+            int year = data1.getYear() + 1900;
+            int month = data1.getMonth() + 1;
+            String data = "" + data1.getDate() + "/" + month + "/" + year;
             String hora = "" + data1.getHours() + ":" + data1.getMinutes() + ":" + data1.getSeconds();
 
             tvDataSos = (TextView) findViewById(R.id.tvDataSos);
@@ -101,12 +108,15 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
             bSalvarSos = (Button) findViewById(R.id.bSalvarSos);
             bSalvarSos.setOnClickListener(this);
 
+            bLigarSos = (Button) findViewById(R.id.bLigarSos);
+            bLigarSos.setOnClickListener(this);
+
             bCancelarSos = (Button) findViewById(R.id.bCancelarSos);
             bCancelarSos.setOnClickListener(this);
+
         } catch (Exception e) {
             Log.i("RESULTADO", e.toString());
         }
-
 
     }
 
@@ -142,27 +152,44 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
+        String celular = sharedPreferences.getString("celular", "");
         if (v.getId() == R.id.bSalvarSos) {
-            SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
-            String celular = sharedPreferences.getString("celular", "");
-
-            SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat sdfHora = new SimpleDateFormat("H:m:s");
             if (celular.equals("") || latitudesos == null || longitudesos == null) {
                 Toast.makeText(this, "Aguarde o carregamento de todos os dados!", Toast.LENGTH_LONG).show();
             } else {
-                AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, INSERIR);
-                asyncDaoController.execute(
-                        celular,//1
-                        ocorrencia,//2
-                        latitudesos,//3
-                        longitudesos,//4
-                        etLocalSos.getText().toString() + "_" + etDescricaoSos.getText().toString()//5
-                );
-                finish();
+                salvarSos(v.getId(), celular);
             }
         } else if (v.getId() == R.id.bCancelarSos) {
             finish();
+        } else if (v.getId() == R.id.bLigarSos) {
+            if (celular.equals("") || latitudesos == null || longitudesos == null) {
+                Toast.makeText(this, "Aguarde o carregamento de todos os dados!", Toast.LENGTH_LONG).show();
+            } else {
+                salvarSos(v.getId(), celular);
+                Uri uri = Uri.parse("tel:190");
+                Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+                startActivity(intent);
+            }
         }
     }
+
+    public void salvarSos(int id, String celular) {
+        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, INSERIR);
+        asyncDaoController.execute(
+                    celular,//1
+                    ocorrencia,//2
+                    latitudesos,//3
+                    longitudesos,//4
+                    ocorrencia + ";" + etLocalSos.getText().toString() + ";" + etDescricaoSos.getText().toString()//5
+        );
+        AsyncDaoController asyncDaoController2 = new AsyncDaoController(this, SOS, LISTAR);
+        asyncDaoController2.execute();
+        AsyncDaoController asyncDaoController3 = new AsyncDaoController(this, SOS, SOS_USUARIO);
+        asyncDaoController3.execute(celular);
+        if (id == R.id.bSalvarSos) {
+            finish();
+        }
+    }
+
 }

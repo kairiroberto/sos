@@ -20,9 +20,10 @@ public class AsyncDaoController extends AsyncTask<String, String, String> {
     private final String INSERIR = "inserir";
     private final String ALTERAR = "alterar";
     private final String LISTAR = "listar";
-    private final String SOS_ATENDIDO = "sosAtendido";
+    private final String SOS_USUARIO = "sosUsuario";
     private final String SOS_VISUALIZADO = "sosVisualizado";
-    private final String USUARIO_LISTAR = "usuarioListar";
+    private final String SOS_ATENDIDO = "sosAtendido";
+    private final String SOS_CENCELAR = "sosCancelar";
 
     private SosDao sosDao = new SosDao();
     private UsuarioDao usuarioDao = new UsuarioDao();
@@ -47,10 +48,14 @@ public class AsyncDaoController extends AsyncTask<String, String, String> {
                 return sosDao.add(strings[0], strings[1], strings[2], strings[3], strings[4]);
             } else if (acao == LISTAR) {
                 return sosDao.desc();
-            } else if (acao == SOS_ATENDIDO) {
-                return sosDao.editatendido(strings[0]);
             } else if (acao == SOS_VISUALIZADO) {
                 return sosDao.editvisualizado(strings[0]);
+            } else if (acao == SOS_USUARIO) {
+                return sosDao.usuario(strings[0]);
+            } else if (acao == SOS_CENCELAR) {
+                return sosDao.editcancelar(strings[0]);
+            } else if (acao == SOS_ATENDIDO) {
+                return sosDao.editatendido(strings[0]);
             }
         }
 

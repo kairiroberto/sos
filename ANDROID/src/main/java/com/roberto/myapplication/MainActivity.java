@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static List<Sos> sosMain = new ArrayList<Sos>();
     public static List<Sos> sosVisualizadoMain = new ArrayList<Sos>();
     public static List<Sos> sosUsuarioMain = new ArrayList<Sos>();
+
     private final String USUARIO = "usuario";
     private final String SOS = "sos";
     private final String INSERIR = "inserir";
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private final String LISTAR = "listar";
     private final String SOS_ATENDIDO = "sosAtendido";
     private final String SOS_VISUALIZADO = "sosVisualizado";
-    private final String USUARIO_LISTAR = "usuarioListar";
+    private final String SOS_USUARIO = "sosUsuario";
     private int id = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -71,8 +72,13 @@ public class MainActivity extends AppCompatActivity {
             asyncDaoController.execute(tm.getImei());
         }
 
+        String celular = sharedPreferences.getString("celular", " ");
+
         AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
         asyncDaoController.execute();
+
+        AsyncDaoController asyncDaoController2 = new AsyncDaoController(this, SOS, SOS_USUARIO);
+        asyncDaoController2.execute(celular);
 
         Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);

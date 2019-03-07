@@ -97,4 +97,19 @@ public class Usuario {
         this.email_uso = email_uso;
     }
 
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("id = " + idusuario);
+        stringBuffer.append("\nnome = " + nome_usu);
+        stringBuffer.append("\ncelular = " + celular_usu);
+        stringBuffer.append("\nfakes = " + fake_new_usu);
+        stringBuffer.append("\nativo = " + ativo_usu);
+        stringBuffer.append("\nrua = " + logradouro_uso);
+        stringBuffer.append("\nnúmero = " + numero_uso);
+        stringBuffer.append("\nbairro = " + bairro_uso);
+        stringBuffer.append("\ncidade = " + cidade_uf_uso);
+        stringBuffer.append("\ne-mail = " + email_uso);
+        return stringBuffer.toString();
+    }
 }

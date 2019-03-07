@@ -27,9 +27,10 @@ public class DataController {
     private final String INSERIR = "inserir";
     private final String ALTERAR = "alterar";
     private final String LISTAR = "listar";
-    private final String SOS_ATENDIDO = "sosAtendido";
+    private final String SOS_USUARIO = "sosUsuario";
     private final String SOS_VISUALIZADO = "sosVisualizado";
-    private final String USUARIO_LISTAR = "usuarioListar";
+    private final String SOS_ATENDIDO = "sosAtendido";
+    private final String SOS_CENCELAR = "sosCancelar";
 
     public DataController(Context context, String tabela, String acao) {
         this.context = context;
@@ -38,10 +39,6 @@ public class DataController {
     }
 
     public void converteJSONfromString(String s) {
-        MainActivity.sosMain.clear();
-        MainActivity.sosVisualizadoMain.clear();
-        MainActivity.sosUsuarioMain.clear();
-        MainActivity.usuariosMain.clear();
         try {
             if (!s.contains("[") && !s.contains("]")) {
                 JSONObject jsonObject = new JSONObject(s);
@@ -49,8 +46,6 @@ public class DataController {
                     if (acao == INSERIR || acao == ALTERAR) {
                         salvarSharedPreferences(jsonObject);
                     }
-                } else {
-                    imprimir(s.toString());
                 }
             } else {
                 JSONArray jsonArray = new JSONArray(s);
@@ -66,7 +61,7 @@ public class DataController {
                             addMainListSos(jsonObject);
                         } else if (acao == SOS_VISUALIZADO) {
                             addListSosVisualizado(jsonObject);
-                        } else if (acao == USUARIO_LISTAR) {
+                        } else if (acao == SOS_USUARIO) {
                             addListSosHistorico(jsonObject);
                         }
                     }
@@ -104,7 +99,7 @@ public class DataController {
             usuario.setIdusuario(Integer.parseInt(jsonObject.getString("idusuario")));
             usuario.setCelular_usu(jsonObject.getString("celular_usu"));
             MainActivity.usuariosMain.add(usuario);
-            imprimir("addMainListUsuario: " + MainActivity.usuariosMain.size());
+            //imprimir("addMainListUsuario: " + MainActivity.usuariosMain.size());
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addMainListUsuario: " + e.toString());
@@ -121,9 +116,14 @@ public class DataController {
             sos.setOcorrencia(Integer.parseInt(jsonObject.getString("ocorrencia")));
             sos.setLatitudeSos(Double.parseDouble(jsonObject.getString("latitude_sos")));
             sos.setLongitudeSos(Double.parseDouble(jsonObject.getString("longitude_sos")));
-            sos.setDescricao_sos(jsonObject.getString("descricao_sos"));
-            MainActivity.sosMain.add(sos);
-            imprimir("addMainListSos: " + MainActivity.sosMain.size());
+            sos.setDescricaoSos(jsonObject.getString("descricao_sos"));
+            sos.setAtendidoSos(Integer.parseInt(jsonObject.getString("atendido_sos")));
+            sos.setVizualizadoSos(Integer.parseInt(jsonObject.getString("vizualizado_sos")));
+            sos.setCanceladoSos(Boolean.parseBoolean(jsonObject.getString("cancelar")));
+            if (!MainActivity.sosMain.contains(sos)) {
+                MainActivity.sosMain.add(sos);
+            }
+            //imprimir("addMainListSos: " + MainActivity.sosMain.size());
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addMainListSos: " + e.toString());
@@ -140,9 +140,14 @@ public class DataController {
             sos.setOcorrencia(Integer.parseInt(jsonObject.getString("ocorrencia")));
             sos.setLatitudeSos(Double.parseDouble(jsonObject.getString("latitude_sos")));
             sos.setLongitudeSos(Double.parseDouble(jsonObject.getString("longitude_sos")));
-            sos.setDescricao_sos(jsonObject.getString("descricao_sos"));
-            MainActivity.sosUsuarioMain.add(sos);
-            imprimir("addListSosHistorico: " + MainActivity.sosUsuarioMain.size());
+            sos.setDescricaoSos(jsonObject.getString("descricao_sos"));
+            sos.setAtendidoSos(Integer.parseInt(jsonObject.getString("atendido_sos")));
+            sos.setVizualizadoSos(Integer.parseInt(jsonObject.getString("vizualizado_sos")));
+            sos.setCanceladoSos(Boolean.parseBoolean(jsonObject.getString("cancelar")));
+            if (!MainActivity.sosUsuarioMain.contains(sos)) {
+                MainActivity.sosUsuarioMain.add(sos);
+            }
+            //imprimir("addListSosHistorico: " + MainActivity.sosUsuarioMain.size());
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addListSosHistorico: " + e.toString());
@@ -159,9 +164,14 @@ public class DataController {
             sos.setOcorrencia(Integer.parseInt(jsonObject.getString("ocorrencia")));
             sos.setLatitudeSos(Double.parseDouble(jsonObject.getString("latitude_sos")));
             sos.setLongitudeSos(Double.parseDouble(jsonObject.getString("longitude_sos")));
-            sos.setDescricao_sos(jsonObject.getString("descricao_sos"));
-            MainActivity.sosVisualizadoMain.add(sos);
-            imprimir("addListSosVisualizado: " + MainActivity.sosUsuarioMain.size());
+            sos.setDescricaoSos(jsonObject.getString("descricao_sos"));
+            sos.setAtendidoSos(Integer.parseInt(jsonObject.getString("atendido_sos")));
+            sos.setVizualizadoSos(Integer.parseInt(jsonObject.getString("vizualizado_sos")));
+            sos.setCanceladoSos(Boolean.parseBoolean(jsonObject.getString("cancelar")));
+            if (!MainActivity.sosVisualizadoMain.contains(sos)) {
+                MainActivity.sosVisualizadoMain.add(sos);
+            }
+            //imprimir("addListSosVisualizado: " + MainActivity.sosUsuarioMain.size());
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addListSosVisualizado: " + e.toString());

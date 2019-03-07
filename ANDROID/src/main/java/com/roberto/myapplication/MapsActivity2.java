@@ -39,9 +39,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
     private final String SOS = "sos";
     private final String LISTAR = "listar";
-    private final String SOS_ATENDIDO = "sosAtendido";
     private final String SOS_VISUALIZADO = "sosVisualizado";
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +50,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        context = this;
+
+        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
+        asyncDaoController.execute();
     }
 
     @Override
@@ -72,8 +72,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         }
         mMap.setMyLocationEnabled(true);
-        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
-        asyncDaoController.execute();
         for (Sos sos : MainActivity.sosMain) {
             lista.add(sos);
             Double lat = sos.getLatitudeSos();
@@ -124,9 +122,14 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         stringBuffer.append("Deseja atender a ocorrência?\n");
         for (Sos s : lista) {
             if (s.getIdsos() == Integer.parseInt(marker.getTitle())) {
-                String local = s.getDescricao_sos().substring(0, s.getDescricao_sos().indexOf("_"));
-                String descricao = s.getDescricao_sos().substring(s.getDescricao_sos().indexOf("_")).replace("_", " ");
-                stringBuffer.append("Descrição: " + local + "(local) - " + descricao);
+                String ocorrencia = s.getDescricaoSos().substring(0, s.getDescricaoSos().indexOf(";"));
+                String tempLocal = s.getDescricaoSos().substring(s.getDescricaoSos().indexOf(";") + 1);
+                String local = tempLocal.substring(0, s.getDescricaoSos().indexOf(";"));
+                String tempDescricao = tempLocal.substring(tempLocal.indexOf(";") + 1);
+                String descricao = tempDescricao;
+                stringBuffer.append(ocorrencia.replace("_", " ")
+                        + " - Descrição: " + local.replace("_", " ")
+                        + "(local) - " + descricao.replace("_", " "));
             }
         }
         builder.setMessage(stringBuffer);

@@ -1,5 +1,10 @@
 package com.roberto.myapplication.model;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
+import java.util.Objects;
+
 public class Sos {
 
     private int idsos;
@@ -9,12 +14,12 @@ public class Sos {
     private int ocorrencia;
     private Double latitudeSos;
     private Double longitudeSos;
-    private Boolean atendido_sos;
+    private int atendidoSos;
     private int vizualizadoSos;
-    private String descricao_sos;
+    private Boolean canceladoSos;
+    private String descricaoSos;
 
     public Sos() {
-
     }
 
     public int getIdsos() {
@@ -73,12 +78,12 @@ public class Sos {
         this.longitudeSos = longitudeSos;
     }
 
-    public Boolean getAtendido_sos() {
-        return atendido_sos;
+    public int getAtendidoSos() {
+        return atendidoSos;
     }
 
-    public void setAtendido_sos(Boolean atendido_sos) {
-        this.atendido_sos = atendido_sos;
+    public void setAtendidoSos(int atendidoSos) {
+        this.atendidoSos = atendidoSos;
     }
 
     public int getVizualizadoSos() {
@@ -89,12 +94,54 @@ public class Sos {
         this.vizualizadoSos = vizualizadoSos;
     }
 
-    public String getDescricao_sos() {
-        return descricao_sos;
+    public Boolean getCanceladoSos() {
+        return canceladoSos;
     }
 
-    public void setDescricao_sos(String descricao_sos) {
-        this.descricao_sos = descricao_sos;
+    public void setCanceladoSos(Boolean canceladoSos) {
+        this.canceladoSos = canceladoSos;
+    }
+
+    public String getDescricaoSos() {
+        return descricaoSos;
+    }
+
+    public void setDescricaoSos(String descricaoSos) {
+        this.descricaoSos = descricaoSos;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("\nid = " + idsos);
+        stringBuffer.append("\ndata = " + dataSos);
+        stringBuffer.append("\nhora = " + horaSos);
+        stringBuffer.append("\nocorrencia = " + ocorrencia);
+        stringBuffer.append("\nlatitude = " + latitudeSos);
+        stringBuffer.append("\nlongitude = " + longitudeSos);
+        stringBuffer.append("\natendido = " + atendidoSos);
+        stringBuffer.append("\ncancelado = " + canceladoSos);
+        stringBuffer.append("\nvazualizado = " + vizualizadoSos);
+        stringBuffer.append("\ndescrição = " + descricaoSos + "\n");
+        return stringBuffer.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Sos)) return false;
+        Sos sos = (Sos) o;
+        return getIdsos() == sos.getIdsos();
+    }
+
+    @Override
+    public int hashCode() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return Objects.hash(getIdsos());
+        }
+        else {
+            return 0;
+        }
     }
 
 }
