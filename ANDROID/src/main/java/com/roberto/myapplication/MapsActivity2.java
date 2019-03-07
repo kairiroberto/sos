@@ -115,25 +115,16 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     public void onInfoWindowClick(final Marker marker) {
         final AsyncDaoController asyncDaoController = new AsyncDaoController(MapsActivity2.this, SOS, SOS_VISUALIZADO);
         asyncDaoController.execute(marker.getTitle());
-
         AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
         builder.setTitle("SOS " + marker.getTitle());
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Deseja atender a ocorrência?\n");
         for (Sos s : lista) {
             if (s.getIdsos() == Integer.parseInt(marker.getTitle())) {
-                String ocorrencia = s.getDescricaoSos().substring(0, s.getDescricaoSos().indexOf(";"));
-                String tempLocal = s.getDescricaoSos().substring(s.getDescricaoSos().indexOf(";") + 1);
-                String local = tempLocal.substring(0, s.getDescricaoSos().indexOf(";"));
-                String tempDescricao = tempLocal.substring(tempLocal.indexOf(";") + 1);
-                String descricao = tempDescricao;
-                stringBuffer.append(ocorrencia.replace("_", " ")
-                        + " - Descrição: " + local.replace("_", " ")
-                        + "(local) - " + descricao.replace("_", " "));
+                stringBuffer.append(s.getDescricaoSos());
             }
         }
         builder.setMessage(stringBuffer);
-
         builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -149,8 +140,8 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 Toast.makeText(MapsActivity2.this, "SOS NÃO ATENDIDO", Toast.LENGTH_LONG).show();
             }
         });
+
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 }
