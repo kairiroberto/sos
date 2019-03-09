@@ -80,7 +80,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        atualizarListas();
+        //atualizarListas();
     }
 
     @Override

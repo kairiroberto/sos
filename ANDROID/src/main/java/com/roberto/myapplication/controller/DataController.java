@@ -50,23 +50,18 @@ public class DataController {
                 }
             } else {
                 JSONArray jsonArray = new JSONArray(s);
-                if ((jsonArray == null || jsonArray.isNull(0)) && tabela == SOS) {
-                    MainActivity.sosMain.clear();
-                    MainActivity.sosUsuarioMain.clear();
-                } else {
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (tabela == SOS) {
-                            if (acao == INSERIR || acao == SOS_ATENDIDO || acao == SOS_CENCELAR || acao == SOS_VISUALIZADO) {
-                                addMainListSos(jsonObject);
-                                addListSosHistorico(jsonObject);
-                            } else if (acao == LISTAR) {
-                                addMainListSos(jsonObject);
-                            } else if (acao == SOS_VISUALIZADO) {
-                                addListSosVisualizado(jsonObject);
-                            } else if (acao == SOS_USUARIO) {
-                                addListSosHistorico(jsonObject);
-                            }
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (tabela == SOS) {
+                        if (acao == INSERIR || acao == SOS_ATENDIDO || acao == SOS_CENCELAR || acao == SOS_VISUALIZADO) {
+                            addMainListSos(jsonObject);
+                            addListSosHistorico(jsonObject);
+                        } else if (acao == LISTAR) {
+                            addMainListSos(jsonObject);
+                        } else if (acao == SOS_VISUALIZADO) {
+                            addListSosVisualizado(jsonObject);
+                        } else if (acao == SOS_USUARIO) {
+                            addListSosHistorico(jsonObject);
                         }
                     }
                 }
@@ -135,7 +130,7 @@ public class DataController {
             sos.setAtendidoSos(Integer.parseInt(jsonObject.getString("atendido_sos")));
             sos.setVizualizadoSos(Integer.parseInt(jsonObject.getString("vizualizado_sos")));
             sos.setCanceladoSos(Boolean.parseBoolean(jsonObject.getString("cancelar")));
-            if (!MainActivity.sosUsuarioMain.contains(sos)){
+            if (!MainActivity.sosUsuarioMain.contains(sos)) {
                 MainActivity.sosUsuarioMain.add(sos);
             }
             //imprimir("addListSosHistorico: " + MainActivity.sosUsuarioMain.size());

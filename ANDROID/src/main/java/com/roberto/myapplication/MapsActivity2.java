@@ -68,6 +68,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         }
         mMap.setMyLocationEnabled(true);
+        mMap.setOnInfoWindowClickListener(this);
+        atualizarLista();
+    }
+
+    private void atualizarLista() {
         for (Sos sos : MainActivity.sosMain) {
             lista.add(sos);
             Double lat = sos.getLatitudeSos();
@@ -75,7 +80,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             LatLng ponto = new LatLng(lat, lng);
             adicionarMarcador(mMap, ponto, sos);
         }
-        mMap.setOnInfoWindowClickListener(this);
     }
 
     private void adicionarMarcador(GoogleMap mMap, LatLng ponto, Sos sos) {
@@ -139,5 +143,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    protected void onStop() {
+        atualizarLista();
+        super.onStop();
     }
 }

@@ -3,6 +3,7 @@ package com.roberto.myapplication;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,10 +21,12 @@ import android.widget.Toast;
 
 import com.roberto.myapplication.conection.ApacheConection;
 import com.roberto.myapplication.controller.AsyncDaoController;
+import com.roberto.myapplication.controller.IntentServiceSos;
 import com.roberto.myapplication.model.Sos;
 import com.roberto.myapplication.model.Usuario;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent it = new Intent(this, IntentServiceSos.class);
+        PendingIntent p = PendingIntent.getBroadcast(this, 0, it, 0);
+        //Calendar c = Calendar.getInstance();
+        //c.setTimeInMillis(System.currentTimeMillis());
+        //c.add(Calendar.SECOND, 10);
+        AlarmManager alarme = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long alarmStartTime = System.currentTimeMillis();
+        long alarmExecuteInterval = 1 * 1000;
+        alarme.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmExecuteInterval, p);
 
         SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
         int id = sharedPreferences.getInt("id", 0);
