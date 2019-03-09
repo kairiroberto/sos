@@ -126,22 +126,23 @@ public class Sos {
         return stringBuffer.toString();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Sos)) return false;
-        Sos sos = (Sos) o;
-        return getIdsos() == sos.getIdsos();
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        } else {
+            Sos sos = (Sos) o;
+            return idsos == sos.idsos;
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public int hashCode() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            return Objects.hash(getIdsos());
-        }
-        else {
-            return 0;
-        }
+        return Objects.hash(idsos);
     }
 
 }

@@ -1,10 +1,14 @@
 package com.roberto.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import com.roberto.myapplication.controller.AsyncDaoController;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -14,10 +18,23 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Button bResidenciaMenu;
     private Button bPerfilMenu;
 
+    private final String USUARIO = "usuario";
+    private final String SOS = "sos";
+    private final String INSERIR = "inserir";
+    private final String ALTERAR = "alterar";
+    private final String LISTAR = "listar";
+    private final String SOS_USUARIO = "sosUsuario";
+    private final String SOS_VISUALIZADO = "sosVisualizado";
+    private final String SOS_ATENDIDO = "sosAtendido";
+    private final String SOS_CENCELAR = "sosCancelar";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        //atualizarListas();
+
         bSosMenu = (Button) findViewById(R.id.bSosMenu);
         bSosMenu.setOnClickListener(this);
         bMapaMenu = (Button) findViewById(R.id.bMapaMenu);
@@ -32,6 +49,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        //atualizarListas();
         Intent i = null;
         if (v.getId() == R.id.bSosMenu) {
             i = new Intent(this, SosMenuActivity.class);
@@ -47,4 +65,42 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(i);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        atualizarListas();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //atualizarListas();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        atualizarListas();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //atualizarListas();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //atualizarListas();
+    }
+
+    private void atualizarListas() {
+        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
+        asyncDaoController.execute();
+        SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
+        String celular = sharedPreferences.getString("celular", " ");
+        AsyncDaoController asyncDaoController2 = new AsyncDaoController(this, SOS, SOS_USUARIO);
+        asyncDaoController2.execute(celular);
+    }
 }

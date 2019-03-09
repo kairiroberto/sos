@@ -38,7 +38,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private List<Sos> lista = new ArrayList<Sos>();
 
     private final String SOS = "sos";
-    private final String LISTAR = "listar";
     private final String SOS_VISUALIZADO = "sosVisualizado";
 
     @Override
@@ -50,9 +49,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
-        asyncDaoController.execute();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.roberto.myapplication.controller;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -49,20 +50,23 @@ public class DataController {
                 }
             } else {
                 JSONArray jsonArray = new JSONArray(s);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if (tabela == USUARIO) {
-                        addMainListUsuario(jsonObject);
-                    }
-                    else if (tabela == SOS) {
-                        if (acao == INSERIR) {
-                            addMainListSos(jsonObject);
-                        } else if (acao == LISTAR) {
-                            addMainListSos(jsonObject);
-                        } else if (acao == SOS_VISUALIZADO) {
-                            addListSosVisualizado(jsonObject);
-                        } else if (acao == SOS_USUARIO) {
-                            addListSosHistorico(jsonObject);
+                if ((jsonArray == null || jsonArray.isNull(0)) && tabela == SOS) {
+                    MainActivity.sosMain.clear();
+                    MainActivity.sosUsuarioMain.clear();
+                } else {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (tabela == SOS) {
+                            if (acao == INSERIR || acao == SOS_ATENDIDO || acao == SOS_CENCELAR || acao == SOS_VISUALIZADO) {
+                                addMainListSos(jsonObject);
+                                addListSosHistorico(jsonObject);
+                            } else if (acao == LISTAR) {
+                                addMainListSos(jsonObject);
+                            } else if (acao == SOS_VISUALIZADO) {
+                                addListSosVisualizado(jsonObject);
+                            } else if (acao == SOS_USUARIO) {
+                                addListSosHistorico(jsonObject);
+                            }
                         }
                     }
                 }
@@ -90,19 +94,6 @@ public class DataController {
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("salvarSharedPreferences: " + e.toString());
-        }
-    }
-
-    private void addMainListUsuario(JSONObject jsonObject) throws JSONException {
-        try {
-            Usuario usuario = new Usuario();
-            usuario.setIdusuario(Integer.parseInt(jsonObject.getString("idusuario")));
-            usuario.setCelular_usu(jsonObject.getString("celular_usu"));
-            MainActivity.usuariosMain.add(usuario);
-            //imprimir("addMainListUsuario: " + MainActivity.usuariosMain.size());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            imprimir("addMainListUsuario: " + e.toString());
         }
     }
 
@@ -144,7 +135,7 @@ public class DataController {
             sos.setAtendidoSos(Integer.parseInt(jsonObject.getString("atendido_sos")));
             sos.setVizualizadoSos(Integer.parseInt(jsonObject.getString("vizualizado_sos")));
             sos.setCanceladoSos(Boolean.parseBoolean(jsonObject.getString("cancelar")));
-            if (!MainActivity.sosUsuarioMain.contains(sos)) {
+            if (!MainActivity.sosUsuarioMain.contains(sos)){
                 MainActivity.sosUsuarioMain.add(sos);
             }
             //imprimir("addListSosHistorico: " + MainActivity.sosUsuarioMain.size());
@@ -171,7 +162,7 @@ public class DataController {
             if (!MainActivity.sosVisualizadoMain.contains(sos)) {
                 MainActivity.sosVisualizadoMain.add(sos);
             }
-            //imprimir("addListSosVisualizado: " + MainActivity.sosUsuarioMain.size());
+            //imprimir("addListSosVisualizado: " + MainActivity.sosVisualizadoMain.size());
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addListSosVisualizado: " + e.toString());

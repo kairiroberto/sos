@@ -29,7 +29,6 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
     private String celular = "";
 
     private final String SOS = "sos";
-    private final String SOS_USUARIO = "sosUsuario";
     private final String SOS_ATENDIDO = "sosAtendido";
     private final String SOS_CENCELAR = "sosCancelar";
 
@@ -38,12 +37,6 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sos_list);
         lvSosUsuario = (ListView) findViewById(R.id.lvSosUsuario);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
-        celular = sharedPreferences.getString("celular", " ");
-
-        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, SOS_USUARIO);
-        asyncDaoController.execute(celular);
 
         arrayAdapter = new ArrayAdapter<Sos>(
                 this,
@@ -81,8 +74,6 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(DialogInterface dialog, int which) {
                 AsyncDaoController asyncDaoController = new AsyncDaoController(SosListActivity.this, SOS, SOS_ATENDIDO);
                 asyncDaoController.execute(String.valueOf(sos.getIdsos()));
-                AsyncDaoController asyncDaoController2 = new AsyncDaoController(SosListActivity.this, SOS, SOS_USUARIO);
-                asyncDaoController2.execute(celular);
                 MainActivity.sosUsuarioMain.remove(sos);
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -92,8 +83,6 @@ public class SosListActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(DialogInterface dialog, int which) {
                 AsyncDaoController asyncDaoController = new AsyncDaoController(SosListActivity.this, SOS, SOS_CENCELAR);
                 asyncDaoController.execute(String.valueOf(sos.getIdsos()));
-                AsyncDaoController asyncDaoController2 = new AsyncDaoController(SosListActivity.this, SOS, SOS_USUARIO);
-                asyncDaoController2.execute(celular);
                 MainActivity.sosUsuarioMain.remove(sos);
                 arrayAdapter.notifyDataSetChanged();
             }

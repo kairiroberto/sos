@@ -42,8 +42,6 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
 
     private final String SOS = "sos";
     private final String INSERIR = "inserir";
-    private final String LISTAR = "listar";
-    private final String SOS_USUARIO = "sosUsuario";
 
     private LocationManager locationManager;
     private LocationListener locationListener = new LocationListener() {
@@ -183,10 +181,6 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
                     longitudesos,//4
                     ocorrencia + ";" + etLocalSos.getText().toString() + ";" + etDescricaoSos.getText().toString()//5
         );
-        AsyncDaoController asyncDaoController2 = new AsyncDaoController(this, SOS, LISTAR);
-        asyncDaoController2.execute();
-        AsyncDaoController asyncDaoController3 = new AsyncDaoController(this, SOS, SOS_USUARIO);
-        asyncDaoController3.execute(celular);
         if (id == R.id.bSalvarSos) {
             finish();
         }

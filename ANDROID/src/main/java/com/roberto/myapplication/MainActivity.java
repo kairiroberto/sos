@@ -2,6 +2,7 @@ package com.roberto.myapplication;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,13 +34,8 @@ public class MainActivity extends AppCompatActivity {
     public static List<Sos> sosUsuarioMain = new ArrayList<Sos>();
 
     private final String USUARIO = "usuario";
-    private final String SOS = "sos";
     private final String INSERIR = "inserir";
-    private final String ALTERAR = "alterar";
-    private final String LISTAR = "listar";
-    private final String SOS_ATENDIDO = "sosAtendido";
-    private final String SOS_VISUALIZADO = "sosVisualizado";
-    private final String SOS_USUARIO = "sosUsuario";
+
     private int id = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -71,14 +67,6 @@ public class MainActivity extends AppCompatActivity {
             AsyncDaoController asyncDaoController = new AsyncDaoController(this, USUARIO, INSERIR);
             asyncDaoController.execute(tm.getImei());
         }
-
-        String celular = sharedPreferences.getString("celular", " ");
-
-        AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
-        asyncDaoController.execute();
-
-        AsyncDaoController asyncDaoController2 = new AsyncDaoController(this, SOS, SOS_USUARIO);
-        asyncDaoController2.execute(celular);
 
         Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);
