@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.roberto.myapplication.conection.ApacheConection;
@@ -47,15 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent it = new Intent(this, IntentServiceSos.class);
-        PendingIntent p = PendingIntent.getBroadcast(this, 0, it, 0);
-        //Calendar c = Calendar.getInstance();
-        //c.setTimeInMillis(System.currentTimeMillis());
-        //c.add(Calendar.SECOND, 10);
-        AlarmManager alarme = (AlarmManager) getSystemService(ALARM_SERVICE);
-        long alarmStartTime = System.currentTimeMillis();
-        long alarmExecuteInterval = 1 * 1000;
-        alarme.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmExecuteInterval, p);
+        iniciarServico();
 
         SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
         int id = sharedPreferences.getInt("id", 0);
@@ -83,6 +76,20 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);
+    }
+
+    private void iniciarServico() {
+
+        Intent it = new Intent(this, IntentServiceSos.class);
+        boolean alarmActive = (PendingIntent.getService(this, 0, it, PendingIntent.FLAG_NO_CREATE) != null);
+        if (!alarmActive) {
+            Log.i("SERVICO", "NOVO SERVICO");
+            PendingIntent p = PendingIntent.getService(this, 0, it, 0);
+            AlarmManager alarme = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            long alarmStartTime = System.currentTimeMillis();
+            long alarmExecuteInterval = 10 * 1000;
+            alarme.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 10*1000, p);
+        }
     }
 
 }
