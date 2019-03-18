@@ -21,11 +21,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.roberto.myapplication.conection.ApacheConection;
+import com.roberto.myapplication.conection.SosBD;
 import com.roberto.myapplication.controller.AsyncDaoController;
 import com.roberto.myapplication.controller.IntentServiceSos;
 import com.roberto.myapplication.model.Sos;
 import com.roberto.myapplication.model.Usuario;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final String USUARIO = "usuario";
     private final String INSERIR = "inserir";
+    private final String CRIAR_BD = "criarBd";
 
     private int id = 0;
 
@@ -75,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
             TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             AsyncDaoController asyncDaoController = new AsyncDaoController(this, USUARIO, INSERIR);
             asyncDaoController.execute(tm.getImei());
+        }
+
+        if (!this.getDatabasePath("sos").exists()){
+            SosBD sos = new SosBD(this);
+        } else {
+            SosBD sos = new SosBD(this);
+            sos.delete();
         }
 
         Intent i = new Intent(this, MenuActivity.class);

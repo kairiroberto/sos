@@ -25,6 +25,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.roberto.myapplication.MainActivity;
+import com.roberto.myapplication.MensagemActivity;
 
 public class IntentServiceSos extends Service {
 
@@ -50,19 +51,32 @@ public class IntentServiceSos extends Service {
         if (isConnected) {
             Log.i("SERVICO", "Listas atualizadas");
 
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(android.support.v4.R.drawable.notification_icon_background)
-                    .setContentTitle("My notification")
-                    .setContentText("Hello World!");
-            PendingIntent resultPendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent i = new Intent(this, MensagemActivity.class);
+            i.putExtra("msg", "Teste");
+
+            TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
+            taskStackBuilder.addParentStack(i.getComponent());
+            taskStackBuilder.addNextIntent(i);
+
+            PendingIntent resultPendingIntent = taskStackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+            mBuilder.setSmallIcon(android.support.v4.R.drawable.notification_icon_background);
+            mBuilder.setContentTitle("My notification");
+            mBuilder.setContentText("Hello World!");
+            mBuilder.setFullScreenIntent(resultPendingIntent, false);
             mBuilder.setContentIntent(resultPendingIntent);
-            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mBuilder.setAutoCancel(true);
+
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
             mNotificationManager.notify(1, mBuilder.build());
 
             AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
             asyncDaoController.execute();
+
             SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
             String celular = sharedPreferences.getString("celular", " ");
+
             AsyncDaoController asyncDaoController2 = new AsyncDaoController(this, SOS, SOS_USUARIO);
             asyncDaoController2.execute(celular);
         }

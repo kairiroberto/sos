@@ -16,7 +16,7 @@ public class Sos {
     private Double longitudeSos;
     private int atendidoSos;
     private int vizualizadoSos;
-    private Boolean canceladoSos;
+    private int canceladoSos;
     private String descricaoSos;
 
     public Sos() {
@@ -94,11 +94,11 @@ public class Sos {
         this.vizualizadoSos = vizualizadoSos;
     }
 
-    public Boolean getCanceladoSos() {
+    public int getCanceladoSos() {
         return canceladoSos;
     }
 
-    public void setCanceladoSos(Boolean canceladoSos) {
+    public void setCanceladoSos(int canceladoSos) {
         this.canceladoSos = canceladoSos;
     }
 
@@ -116,6 +116,7 @@ public class Sos {
         stringBuffer.append("\nid = " + idsos);
         stringBuffer.append("\ndata = " + dataSos);
         stringBuffer.append("\nhora = " + horaSos);
+        stringBuffer.append("\nusuário = " + usuario);
         stringBuffer.append("\nocorrencia = " + ocorrencia);
         stringBuffer.append("\nlatitude = " + latitudeSos);
         stringBuffer.append("\nlongitude = " + longitudeSos);

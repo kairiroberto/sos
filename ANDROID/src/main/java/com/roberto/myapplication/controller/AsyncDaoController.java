@@ -4,9 +4,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.roberto.myapplication.conection.SosBD;
 import com.roberto.myapplication.dao.ResidenciaDao;
 import com.roberto.myapplication.dao.SosDao;
 import com.roberto.myapplication.dao.UsuarioDao;
+
+import java.io.File;
 
 public class AsyncDaoController extends AsyncTask<String, String, String> {
 
@@ -24,6 +27,7 @@ public class AsyncDaoController extends AsyncTask<String, String, String> {
     private final String SOS_VISUALIZADO = "sosVisualizado";
     private final String SOS_ATENDIDO = "sosAtendido";
     private final String SOS_CENCELAR = "sosCancelar";
+    private final String CRIAR_BD = "criarBd";
 
     private SosDao sosDao = new SosDao();
     private UsuarioDao usuarioDao = new UsuarioDao();
@@ -62,6 +66,17 @@ public class AsyncDaoController extends AsyncTask<String, String, String> {
         else if (tabela == USUARIO) {
             if (acao == INSERIR) {
                 return usuarioDao.add(strings[0]);
+            } else if (acao == ALTERAR) {
+                return usuarioDao.edit(
+                        strings[0],
+                        strings[1],
+                        strings[2],
+                        strings[3],
+                        strings[4],
+                        strings[5],
+                        strings[6],
+                        strings[7]
+                );
             }
         }
 

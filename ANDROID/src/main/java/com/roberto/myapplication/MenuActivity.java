@@ -98,8 +98,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private void atualizarListas() {
         AsyncDaoController asyncDaoController = new AsyncDaoController(this, SOS, LISTAR);
         asyncDaoController.execute();
+
         SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
         String celular = sharedPreferences.getString("celular", " ");
+
         AsyncDaoController asyncDaoController2 = new AsyncDaoController(this, SOS, SOS_USUARIO);
         asyncDaoController2.execute(celular);
     }

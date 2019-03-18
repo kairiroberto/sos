@@ -1,14 +1,13 @@
 package com.roberto.myapplication.controller;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.roberto.myapplication.MainActivity;
+import com.roberto.myapplication.conection.SosBD;
 import com.roberto.myapplication.model.Sos;
-import com.roberto.myapplication.model.Usuario;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +18,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class DataController {
 
     private Context context;
+
+    private SosBD sosBD;
 
     private String tabela;
     private String acao;
@@ -37,6 +38,7 @@ public class DataController {
         this.context = context;
         this.tabela = tabela;
         this.acao = acao;
+        this.sosBD = new SosBD(context);
     }
 
     public void converteJSONfromString(String s) {
@@ -58,8 +60,6 @@ public class DataController {
                             addListSosHistorico(jsonObject);
                         } else if (acao == LISTAR) {
                             addMainListSos(jsonObject);
-                        } else if (acao == SOS_VISUALIZADO) {
-                            addListSosVisualizado(jsonObject);
                         } else if (acao == SOS_USUARIO) {
                             addListSosHistorico(jsonObject);
                         }
@@ -105,9 +105,14 @@ public class DataController {
             sos.setDescricaoSos(jsonObject.getString("descricao_sos"));
             sos.setAtendidoSos(Integer.parseInt(jsonObject.getString("atendido_sos")));
             sos.setVizualizadoSos(Integer.parseInt(jsonObject.getString("vizualizado_sos")));
-            sos.setCanceladoSos(Boolean.parseBoolean(jsonObject.getString("cancelar")));
+            sos.setCanceladoSos(Integer.parseInt(jsonObject.getString("cancelar")));
             if (!MainActivity.sosMain.contains(sos)) {
                 MainActivity.sosMain.add(sos);
+            }
+            SharedPreferences sharedPreferences = context.getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
+            int id = sharedPreferences.getInt("id", 0);
+            if (sos.getUsuario() == id) {
+                sosBD.save(sos);
             }
             //imprimir("addMainListSos: " + MainActivity.sosMain.size());
         } catch (JSONException e) {
@@ -129,7 +134,13 @@ public class DataController {
             sos.setDescricaoSos(jsonObject.getString("descricao_sos"));
             sos.setAtendidoSos(Integer.parseInt(jsonObject.getString("atendido_sos")));
             sos.setVizualizadoSos(Integer.parseInt(jsonObject.getString("vizualizado_sos")));
-            sos.setCanceladoSos(Boolean.parseBoolean(jsonObject.getString("cancelar")));
+            Log.i("CANCELAR", jsonObject.getString("cancelar"));
+            if (jsonObject.getString("cancelar").equals("1")) {
+                sos.setCanceladoSos(1);
+            } else {
+                sos.setCanceladoSos(0);
+            }
+            sosBD.save(sos);
             if (!MainActivity.sosUsuarioMain.contains(sos)) {
                 MainActivity.sosUsuarioMain.add(sos);
             }
@@ -137,30 +148,6 @@ public class DataController {
         } catch (JSONException e) {
             e.printStackTrace();
             imprimir("addListSosHistorico: " + e.toString());
-        }
-    }
-
-    private void addListSosVisualizado(JSONObject jsonObject) {
-        try {
-            Sos sos = new Sos();
-            sos.setIdsos(Integer.parseInt(jsonObject.getString("idsos")));
-            sos.setDataSos(jsonObject.getString("data_sos"));
-            sos.setHoraSos(jsonObject.getString("hora_sos"));
-            sos.setUsuario(Integer.parseInt(jsonObject.getString("usuario")));
-            sos.setOcorrencia(Integer.parseInt(jsonObject.getString("ocorrencia")));
-            sos.setLatitudeSos(Double.parseDouble(jsonObject.getString("latitude_sos")));
-            sos.setLongitudeSos(Double.parseDouble(jsonObject.getString("longitude_sos")));
-            sos.setDescricaoSos(jsonObject.getString("descricao_sos"));
-            sos.setAtendidoSos(Integer.parseInt(jsonObject.getString("atendido_sos")));
-            sos.setVizualizadoSos(Integer.parseInt(jsonObject.getString("vizualizado_sos")));
-            sos.setCanceladoSos(Boolean.parseBoolean(jsonObject.getString("cancelar")));
-            if (!MainActivity.sosVisualizadoMain.contains(sos)) {
-                MainActivity.sosVisualizadoMain.add(sos);
-            }
-            //imprimir("addListSosVisualizado: " + MainActivity.sosVisualizadoMain.size());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            imprimir("addListSosVisualizado: " + e.toString());
         }
     }
 
