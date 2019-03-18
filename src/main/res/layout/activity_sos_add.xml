@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:descendantFocusability="beforeDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D3726B"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dp"
+            android:text="SOS"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/tvDataSos"
+            android:text="Data: "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvOcorrenciaSos"
+            android:text="Tipo de Ocorrência: "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvLatitudeSos"
+            android:text="Latitude: "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvLongitudeSos"
+            android:text="Longitude: "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Local (O campo não é obrigatório)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etLocalSos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Descrição (O campo não é obrigatório)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etDescricaoSos"
+            android:inputType="textMultiLine"
+            android:lines="20"
+            android:minLines="5"
+            android:scrollHorizontally="false"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bSalvarSos"
+            android:text="LANÇAR - SOS"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:textColor="@android:color/background_light"
+            android:background="@android:color/holo_blue_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bLigarSos"
+            android:text="LIGAR - SOS"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:textColor="@android:color/background_light"
+            android:background="@android:color/holo_green_dark"
+            android:focusable="true"
+            android:focusedByDefault="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bCancelarSos"
+            android:text="CANCELAR"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
+            android:textColor="@android:color/background_light"
+            android:background="@android:color/holo_red_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</ScrollView>

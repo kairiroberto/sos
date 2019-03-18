@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="30dp"
+            android:id="@+id/bSosMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SOS"
+            android:background="@android:color/holo_red_dark"
+            android:textColor="@android:color/background_light" />
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bMapaMenu"
+            android:text="OCORRÊNCIAS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/background_light"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bMeusSosMenu"
+            android:text="MEUS SOS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/background_light"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bResidenciaMenu"
+            android:text="RESIDÊNCIA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/background_light"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/bPerfilMenu"
+            android:text="PERFIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/background_light"/>
+
+    </LinearLayout>
+
+</ScrollView>
