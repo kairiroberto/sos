@@ -1,30 +1,19 @@
 package com.roberto.myapplication.controller;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.app.IntentService;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.IBinder;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.roberto.myapplication.MainActivity;
 import com.roberto.myapplication.MensagemActivity;
 
 public class IntentServiceSos extends Service {
@@ -45,11 +34,21 @@ public class IntentServiceSos extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        Log.i("SERVICO", "SERVICO START IN BOOT");
+        PendingIntent p = PendingIntent.getService(this, 0, intent, 0);
+        AlarmManager alarme = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        long alarmStartTime = System.currentTimeMillis();
+        long alarmExecuteInterval = 10 * 1000;
+        alarme.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 10*1000, p);
+
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
         if (isConnected) {
             Log.i("SERVICO", "Listas atualizadas");
+            Toast.makeText(this, "Dados atualizados com o serviço", Toast.LENGTH_LONG).show();
 
             Intent i = new Intent(this, MensagemActivity.class);
             i.putExtra("msg", "Teste");
@@ -79,7 +78,10 @@ public class IntentServiceSos extends Service {
 
             AsyncDaoController asyncDaoController2 = new AsyncDaoController(this, SOS, SOS_USUARIO);
             asyncDaoController2.execute(celular);
+
         }
+
         return super.onStartCommand(intent, flags, startId);
+
     }
 }

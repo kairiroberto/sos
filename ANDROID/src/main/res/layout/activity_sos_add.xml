@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:descendantFocusability="beforeDescendants"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,6 +9,18 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D3726B"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dp"
+            android:text="SOS"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/tvDataSos"
@@ -75,6 +88,8 @@
             android:textSize="20dp"
             android:textColor="@android:color/background_light"
             android:background="@android:color/holo_green_dark"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

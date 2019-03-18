@@ -102,9 +102,9 @@
             android:id="@+id/bCadastrarUsu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#005500"
+            android:textColor="@android:color/background_light"
+            android:background="@android:color/holo_blue_dark"
             android:text="Cadastrar"
-            android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
     </LinearLayout>

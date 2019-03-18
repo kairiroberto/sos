@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.roberto.myapplication.conection.ApacheConection;
 import com.roberto.myapplication.conection.SosBD;
 import com.roberto.myapplication.controller.AsyncDaoController;
+import com.roberto.myapplication.controller.IntentServiceAlarm;
 import com.roberto.myapplication.controller.IntentServiceSos;
 import com.roberto.myapplication.model.Sos;
 import com.roberto.myapplication.model.Usuario;
@@ -34,14 +35,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static List<Usuario> usuariosMain = new ArrayList<Usuario>();
     public static List<Sos> sosMain = new ArrayList<Sos>();
-    public static List<Sos> sosVisualizadoMain = new ArrayList<Sos>();
     public static List<Sos> sosUsuarioMain = new ArrayList<Sos>();
 
     private final String USUARIO = "usuario";
     private final String INSERIR = "inserir";
-    private final String CRIAR_BD = "criarBd";
 
     private int id = 0;
 
@@ -53,27 +51,41 @@ public class MainActivity extends AppCompatActivity {
 
         iniciarServico();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
-        int id = sharedPreferences.getInt("id", 0);
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NOTIFICATION_POLICY) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_NETWORK_STATE)
                     && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_PHONE_STATE,
+                                Manifest.permission.ACCESS_NETWORK_STATE,
+                                Manifest.permission.INTERNET,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.ACCESS_COARSE_LOCATION,
                                 Manifest.permission.ACCESS_FINE_LOCATION,
                                 Manifest.permission.ACCESS_NOTIFICATION_POLICY},
                         2);
             }
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ACESSO", Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt("id", 0);
+
         if (id == 0) {
             TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             AsyncDaoController asyncDaoController = new AsyncDaoController(this, USUARIO, INSERIR);
@@ -92,8 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void iniciarServico() {
-
-        Intent it = new Intent(this, IntentServiceSos.class);
+        Intent it = new Intent(this, IntentServiceAlarm.class);
         boolean alarmActive = (PendingIntent.getService(this, 0, it, PendingIntent.FLAG_NO_CREATE) != null);
         if (!alarmActive) {
             Log.i("SERVICO", "NOVO SERVICO");
@@ -103,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             long alarmExecuteInterval = 10 * 1000;
             alarme.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 10*1000, p);
         }
+        startService(it);
     }
 
 }

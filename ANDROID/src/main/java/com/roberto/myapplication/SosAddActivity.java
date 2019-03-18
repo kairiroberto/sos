@@ -101,10 +101,14 @@ public class SosAddActivity extends AppCompatActivity implements View.OnClickLis
             tvLongitudeSos = (TextView) findViewById(R.id.tvLongitudeSos);
 
             etLocalSos = (EditText) findViewById(R.id.etLocalSos);
+
             etDescricaoSos = (EditText) findViewById(R.id.etDescricaoSos);
+
 
             bSalvarSos = (Button) findViewById(R.id.bSalvarSos);
             bSalvarSos.setOnClickListener(this);
+            bSalvarSos.setFocusable(true);
+            bSalvarSos.requestFocus();
 
             bLigarSos = (Button) findViewById(R.id.bLigarSos);
             bLigarSos.setOnClickListener(this);
