@@ -2,7 +2,7 @@
 #include <Ethernet.h>
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-char server[] = "10.0.0.103";
+char server[] = "sos.eyglys.com.br";
 //IPAddress server(208,113,198,201);
 
 EthernetClient client;
@@ -28,18 +28,13 @@ void loop() {
     if (client.connect(server, 80)) {
       Serial.print("Conectado ao cliente: ");
       Serial.println(server);
-      client.print("POST ");
-      client.print("sosPHP.php?serie=3 ");
+      client.print("GET ");
+      client.print("/sos/sosPHP.php?serie=00001 ");
       client.println("HTTP/1.1");
       client.print("Host: ");
       client.println(server);
-      client.println("User-Agent: Arduino/1.0");
       client.println("Connection: close");
-      //client.println("Content-Type: application/x-www-form-urlencoded");
-      //client.print("Content-Lenght: ");
-      //client.println(post.length());
       client.println();
-      //client.println(post);
       Serial.println("Dados enviados!!!");
       contador = 1;
       client.stop(); 
