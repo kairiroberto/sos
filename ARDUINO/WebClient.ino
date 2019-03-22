@@ -2,7 +2,7 @@
 #include <Ethernet.h>
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-char server[] = "sos.eyglys.com.br";
+char server[] = "10.0.0.103";
 //IPAddress server(208,113,198,201);
 
 EthernetClient client;
@@ -25,11 +25,11 @@ void setup() {
 
 void loop() {
   if (contador == 0) {
-    if (client.connect(server, 80)) {
+    if (client.connect(server, 8080)) {
       Serial.print("Conectado ao cliente: ");
       Serial.println(server);
       client.print("GET ");
-      client.print("/sos/sosPHP.php?serie=00001 ");
+      client.print("/WebAppSos/newjsp.jsp ");
       client.println("HTTP/1.1");
       client.print("Host: ");
       client.println(server);
