@@ -52,7 +52,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         //atualizarListas();
         Intent i = null;
         if (v.getId() == R.id.bSosMenu) {
-            i = new Intent(this, SosMenuActivity.class);
+            i = new Intent(this, SosMenu2Activity.class);
         } else if (v.getId() == R.id.bMapaMenu) {
             i = new Intent(this, MapsActivity2.class);
         } else if (v.getId() == R.id.bMeusSosMenu) {

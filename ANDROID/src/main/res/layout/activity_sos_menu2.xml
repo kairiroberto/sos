@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+        <TableRow>
+
+            <ImageView
+                android:layout_height="match_parent"
+                android:src="@drawable/arma"/>
+
+            <ImageView
+                android:layout_height="match_parent"
+                android:src="@drawable/mulher"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/bCrimeSos2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@android:color/holo_blue_dark"
+                android:padding="5dp"
+                android:text="CRIME"
+                android:textColor="@android:color/background_light"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/bMariaPenhaSos2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@android:color/holo_purple"
+                android:padding="5dp"
+                android:text="MARIA DA PENHA"
+                android:textColor="@android:color/background_light"
+                android:textSize="20dp" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView
+                android:layout_height="match_parent"
+                android:src="@drawable/emergencia"/>
+
+            <ImageView
+                android:layout_height="match_parent"
+                android:src="@drawable/acidente"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/bUrgenciaSos2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@android:color/background_light"
+                android:padding="5dp"
+                android:text="URG. HOSPITALAR"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/bAcidenteSos2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@android:color/holo_red_dark"
+                android:padding="5dp"
+                android:text="ACIDENTE"
+                android:textColor="@android:color/background_light"
+                android:textSize="20dp" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView
+                android:src="@drawable/fogo" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/bBombeiroSos2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@android:color/holo_orange_dark"
+                android:padding="5dp"
+                android:text="BOMBEIROS"
+                android:textColor="@android:color/background_light"
+                android:textSize="20dp" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</ScrollView>
