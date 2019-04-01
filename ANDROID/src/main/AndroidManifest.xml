@@ -88,12 +88,14 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MensagemActivity"></activity>
+        <activity android:name=".MensagemActivity" />
 
         <service
             android:name=".controller.IntentServiceAlarm"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".SosMenu2Activity"></activity>
     </application>
 
 </manifest>
