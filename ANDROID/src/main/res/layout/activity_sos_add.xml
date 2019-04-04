@@ -89,7 +89,6 @@
             android:textColor="@android:color/background_light"
             android:background="@android:color/holo_green_dark"
             android:focusable="true"
-            android:focusedByDefault="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

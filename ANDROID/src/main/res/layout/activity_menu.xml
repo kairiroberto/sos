@@ -10,54 +10,74 @@
         android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/bSosMenu2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:textSize="30dp"
+            android:background="#990000"
+            android:text="SOS"
+            android:textColor="@android:color/background_light"
+            android:textSize="30dp" />
+
+        <Button
             android:id="@+id/bSosMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#990000"
             android:text="SOS"
-            android:background="@android:color/holo_red_dark"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:textSize="30dp" />
 
         <Button
+            android:id="@+id/bMapaMenu2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:textSize="20dp"
-            android:id="@+id/bMapaMenu"
+            android:background="#336600"
             android:text="OCORRÊNCIAS"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_dark"
-            android:textColor="@android:color/background_light"/>
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp" />
 
         <Button
-            android:layout_margin="5dp"
-            android:textSize="20dp"
-            android:id="@+id/bMeusSosMenu"
-            android:text="MEUS SOS"
+            android:id="@+id/bMapaMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:textColor="@android:color/background_light"/>
+            android:layout_margin="5dp"
+            android:background="#336600"
+            android:text="OCORRÊNCIAS"
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp" />
 
         <Button
-            android:layout_margin="5dp"
-            android:textSize="20dp"
             android:id="@+id/bResidenciaMenu"
-            android:text="RESIDÊNCIA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:textColor="@android:color/background_light"/>
+            android:layout_margin="5dp"
+            android:background="#964b00"
+            android:text="RESIDÊNCIA"
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp" />
 
         <Button
-            android:layout_margin="5dp"
-            android:textSize="20dp"
-            android:id="@+id/bPerfilMenu"
-            android:text="PERFIL"
+            android:id="@+id/bMeusSosMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:textColor="@android:color/background_light"/>
+            android:layout_margin="5dp"
+            android:background="#0000FF"
+            android:text="MEUS SOS"
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/bPerfilMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#0000FF"
+            android:text="PERFIL"
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp" />
 
     </LinearLayout>
 
