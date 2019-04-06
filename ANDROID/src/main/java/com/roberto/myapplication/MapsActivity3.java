@@ -32,7 +32,7 @@ import java.util.List;
 import tcc.myapplocation.jose.tcc.controller.AsyncDaoController;
 import tcc.myapplocation.jose.tcc.model.Sos;
 
-public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class MapsActivity3 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     private Double latitudesos = -6.2623957078904;
@@ -69,8 +69,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps2);
-
+        setContentView(R.layout.activity_maps3);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -78,6 +77,16 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -117,40 +126,40 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         markerOptions.title(String.valueOf(sos.getIdsos()));
         if (sos.getOcorrencia() == 1) {
             markerOptions.snippet("CRIME");
-            //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(240));
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.arma2));
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(240));
+            //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.arma2));
         } else if (sos.getOcorrencia() == 2) {
             markerOptions.snippet("MARIA DA PENHA");
-            //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(300));
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.mulher2));
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(300));
+            //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.mulher2));
         } else if (sos.getOcorrencia() == 3) {
             markerOptions.snippet("ROUBO");
             float[] cor = new float[3];
             Color.colorToHSV(Color.parseColor("#FFFFFF"), cor);
             float cor2 = BitmapDescriptorFactory.HUE_AZURE;
             //.icon(BitmapDescriptorFactory.defaultMarker(cor[0])));
-            //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(120));
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.arma2));
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(120));
+            //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.arma2));
         } else if (sos.getOcorrencia() == 4) {
             markerOptions.snippet("URG. HOSPITALAR");
-            //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(180));
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.emergencia2));
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(180));
+            //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.emergencia2));
         } else if (sos.getOcorrencia() == 5) {
             markerOptions.snippet("ACIDENTE");
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.acidente2));
+            //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.acidente2));
         } else if (sos.getOcorrencia() == 6) {
             markerOptions.snippet("BOMBEIROS");
-            //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(30));
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.fogo2));
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(30));
+            //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.fogo2));
         }
         Marker marker = mMap.addMarker(markerOptions);
     }
 
     @Override
     public void onInfoWindowClick(final Marker marker) {
-        final AsyncDaoController asyncDaoController = new AsyncDaoController(MapsActivity2.this, SOS, SOS_VISUALIZADO);
+        final AsyncDaoController asyncDaoController = new AsyncDaoController(MapsActivity3.this, SOS, SOS_VISUALIZADO);
         asyncDaoController.execute(marker.getTitle());
-        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity3.this);
         builder.setTitle("SOS " + marker.getTitle());
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Deseja atender a ocorrência?\n");
@@ -163,7 +172,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MapsActivity2.this, "SOS ATENDIDO", Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsActivity3.this, "SOS ATENDIDO", Toast.LENGTH_LONG).show();
                 Uri uri = Uri.parse("tel:190");
                 Intent intent = new Intent(Intent.ACTION_DIAL, uri);
                 startActivity(intent);
@@ -172,7 +181,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MapsActivity2.this, "SOS NÃO ATENDIDO", Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsActivity3.this, "SOS NÃO ATENDIDO", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -205,5 +214,4 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }
     }
-
 }

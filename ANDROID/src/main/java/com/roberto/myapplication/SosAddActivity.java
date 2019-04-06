@@ -1,4 +1,4 @@
-package com.roberto.myapplication;
+package tcc.myapplocation.jose.tcc;
 
 import android.Manifest;
 import android.content.Context;
@@ -19,11 +19,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.roberto.myapplication.controller.AsyncDaoController;
-import com.roberto.myapplication.controller.AsyncDaoController;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import tcc.myapplocation.jose.tcc.controller.AsyncDaoController;
 
 public class SosAddActivity extends AppCompatActivity implements View.OnClickListener {
 

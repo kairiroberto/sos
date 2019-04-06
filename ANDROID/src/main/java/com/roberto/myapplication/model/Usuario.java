@@ -1,4 +1,4 @@
-package com.roberto.myapplication.model;
+package tcc.myapplocation.jose.tcc.model;
 
 public class Usuario {
 

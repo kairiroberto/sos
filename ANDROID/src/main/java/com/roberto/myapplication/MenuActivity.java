@@ -1,4 +1,4 @@
-package com.roberto.myapplication;
+package tcc.myapplocation.jose.tcc;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.roberto.myapplication.controller.AsyncDaoController;
+import tcc.myapplocation.jose.tcc.controller.AsyncDaoController;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Button bSosMenu2;
     private Button bSosMenu;
+    private Button bMapaMenu2;
     private Button bMapaMenu;
     private Button bMeusSosMenu;
     private Button bResidenciaMenu;
@@ -37,6 +39,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         bSosMenu = (Button) findViewById(R.id.bSosMenu);
         bSosMenu.setOnClickListener(this);
+        bSosMenu2 = (Button) findViewById(R.id.bSosMenu2);
+        bSosMenu2.setOnClickListener(this);
+        bMapaMenu2 = (Button) findViewById(R.id.bMapaMenu2);
+        bMapaMenu2.setOnClickListener(this);
         bMapaMenu = (Button) findViewById(R.id.bMapaMenu);
         bMapaMenu.setOnClickListener(this);
         bMeusSosMenu = (Button) findViewById(R.id.bMeusSosMenu);
@@ -51,9 +57,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         //atualizarListas();
         Intent i = null;
-        if (v.getId() == R.id.bSosMenu) {
+        if (v.getId() == R.id.bSosMenu2) {
             i = new Intent(this, SosMenu2Activity.class);
+        } else if (v.getId() == R.id.bSosMenu) {
+            i = new Intent(this, SosMenuActivity.class);
         } else if (v.getId() == R.id.bMapaMenu) {
+            i = new Intent(this, MapsActivity3.class);
+        } else if (v.getId() == R.id.bMapaMenu2) {
             i = new Intent(this, MapsActivity2.class);
         } else if (v.getId() == R.id.bMeusSosMenu) {
             i = new Intent(this, SosListActivity.class);

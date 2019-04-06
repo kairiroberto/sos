@@ -1,4 +1,4 @@
-package com.roberto.myapplication;
+package tcc.myapplocation.jose.tcc;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,12 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.roberto.myapplication.conection.SosBD;
-import com.roberto.myapplication.controller.AsyncDaoController;
-import com.roberto.myapplication.model.Sos;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import tcc.myapplocation.jose.tcc.conection.SosBD;
+import tcc.myapplocation.jose.tcc.controller.AsyncDaoController;
+import tcc.myapplocation.jose.tcc.model.Sos;
 
 public class SosListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 

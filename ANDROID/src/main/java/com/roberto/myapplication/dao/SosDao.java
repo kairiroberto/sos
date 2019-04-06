@@ -1,8 +1,8 @@
-package com.roberto.myapplication.dao;
+package tcc.myapplocation.jose.tcc.dao;
 
 import android.util.Log;
 
-import com.roberto.myapplication.conection.ApacheConection;
+import tcc.myapplocation.jose.tcc.conection.ApacheConection;
 
 public class SosDao {
 

@@ -1,4 +1,4 @@
-package com.roberto.myapplication;
+package tcc.myapplocation.jose.tcc;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.roberto.myapplication.controller.AsyncDaoController;
+import tcc.myapplocation.jose.tcc.controller.AsyncDaoController;
 
 public class UserAddActivity  extends AppCompatActivity implements View.OnClickListener  {
 

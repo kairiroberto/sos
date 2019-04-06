@@ -1,4 +1,4 @@
-package com.roberto.myapplication.conection;
+package tcc.myapplocation.jose.tcc.conection;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.roberto.myapplication.model.Sos;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import tcc.myapplocation.jose.tcc.model.Sos;
 
 public class SosBD extends SQLiteOpenHelper {
 

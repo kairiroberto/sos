@@ -1,4 +1,4 @@
-package com.roberto.myapplication.model;
+package tcc.myapplocation.jose.tcc.model;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
