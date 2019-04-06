@@ -1,15 +1,14 @@
-package com.roberto.myapplication.controller;
+package tcc.myapplocation.jose.tcc.controller;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.roberto.myapplication.conection.SosBD;
-import com.roberto.myapplication.dao.ResidenciaDao;
-import com.roberto.myapplication.dao.SosDao;
-import com.roberto.myapplication.dao.UsuarioDao;
-
 import java.io.File;
+
+import tcc.myapplocation.jose.tcc.dao.ResidenciaDao;
+import tcc.myapplocation.jose.tcc.dao.SosDao;
+import tcc.myapplocation.jose.tcc.dao.UsuarioDao;
 
 public class AsyncDaoController extends AsyncTask<String, String, String> {
 
@@ -44,8 +43,6 @@ public class AsyncDaoController extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-
-        Log.i("AsyncTaskController", tabela + acao);
 
         if (tabela == SOS) {
             if (acao == INSERIR) {

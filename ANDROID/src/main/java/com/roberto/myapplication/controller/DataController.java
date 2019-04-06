@@ -1,17 +1,17 @@
-package com.roberto.myapplication.controller;
+package tcc.myapplocation.jose.tcc.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.roberto.myapplication.MainActivity;
-import com.roberto.myapplication.conection.SosBD;
-import com.roberto.myapplication.model.Sos;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import tcc.myapplocation.jose.tcc.MainActivity;
+import tcc.myapplocation.jose.tcc.conection.SosBD;
+import tcc.myapplocation.jose.tcc.model.Sos;
 
 import static android.content.Context.MODE_PRIVATE;
 
