@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        iniciarServico();
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
@@ -87,13 +85,15 @@ public class MainActivity extends AppCompatActivity {
             sos.delete();
         }
 
+        iniciarServico();
+
         Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);
     }
 
     private void iniciarServico() {
         Intent it = new Intent();
-        it.setAction("ALARMAR");
+        it.setAction("START_SERVICE_SOS");
         sendBroadcast(it);
     }
 
