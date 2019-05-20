@@ -12,6 +12,7 @@ import tcc.myapplocation.jose.tcc.controller.AsyncDaoController;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Button bSosMenu3;
     private Button bSosMenu2;
     private Button bSosMenu;
     private Button bMapaMenu2;
@@ -41,6 +42,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         bSosMenu.setOnClickListener(this);
         bSosMenu2 = (Button) findViewById(R.id.bSosMenu2);
         bSosMenu2.setOnClickListener(this);
+        bSosMenu3 = (Button) findViewById(R.id.bSosMenu3);
+        bSosMenu3.setOnClickListener(this);
         bMapaMenu2 = (Button) findViewById(R.id.bMapaMenu2);
         bMapaMenu2.setOnClickListener(this);
         bMapaMenu = (Button) findViewById(R.id.bMapaMenu);
@@ -57,7 +60,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         //atualizarListas();
         Intent i = null;
-        if (v.getId() == R.id.bSosMenu2) {
+        if (v.getId() == R.id.bSosMenu3) {
+            i = new Intent(this, SosMenu3Activity.class);
+        } else if (v.getId() == R.id.bSosMenu2) {
             i = new Intent(this, SosMenu2Activity.class);
         } else if (v.getId() == R.id.bSosMenu) {
             i = new Intent(this, SosMenuActivity.class);
