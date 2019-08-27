@@ -17,6 +17,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class DataController {
 
+    private String TAG = "DataController:";
+
     private Context context;
 
     private SosBD sosBD;
@@ -66,9 +68,10 @@ public class DataController {
                     }
                 }
             }
+            Log.e(TAG + "converteJSONfromString:", tabela + ":" + acao);
         } catch (Exception e) {
-            imprimir("converteJSONfromString: " + e.toString());
-            Log.e("converteJSONfromString", e.toString());
+            imprimir(TAG + "converteJSONfromString: " + e.toString());
+            Log.e(TAG + "converteJSONfromString", e.toString());
         }
     }
 

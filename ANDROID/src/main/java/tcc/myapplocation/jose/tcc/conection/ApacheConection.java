@@ -19,6 +19,7 @@ public class ApacheConection {
 
     public static final String urlsos = "http://sos.eyglys.com.br/index.php/";
     //public static final String urlsos = "http://192.168.1.189/sos/web/index.php/";
+    private String TAG = "ApacheConection:";
 
     public String post(String urlString) {
         try {
@@ -43,11 +44,11 @@ public class ApacheConection {
             bufferedReader.close();
             dataOutputStream.close();
             urlConnection.disconnect();
-            Log.i("RESULTADO", sb);
+            Log.i(TAG + "POST:", sb);
             return sb;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "POST:ERRO:", e.toString());
             return "";
         }
     }
@@ -73,11 +74,11 @@ public class ApacheConection {
             }
             bufferedReader.close();
             urlConnection.disconnect();
-            Log.i("RESULTADO", sb);
+            Log.i(TAG + "PUT:", sb);
             return sb;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "PUT:ERRO:", e.toString());
             return "";
         }
     }
@@ -95,11 +96,11 @@ public class ApacheConection {
             DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
             dataOutputStream.flush();
             urlConnection.disconnect();
-            Log.i("RESULTADO", urlString);
+            Log.i(TAG + "DELETE:", urlString);
             return urlString;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "DELETE:ERRO:", e.toString());
             return "";
         }
     }
@@ -125,16 +126,16 @@ public class ApacheConection {
                 }
                 bufferedReader.close();
                 urlConnection.disconnect();
-                Log.i("RESULTADO", "get: " + sb);
+                Log.i(TAG + "GET OK:", "get: " + sb);
                 return sb.toString();
             } else {
                 urlConnection.disconnect();
-                Log.i("RESULTADO", "get: " + responseCode);
+                Log.i(TAG + "GET NO OK:", "get: " + responseCode);
                 return String.valueOf(responseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "GET:ERRO:", e.toString());
             return "";
         }
     }

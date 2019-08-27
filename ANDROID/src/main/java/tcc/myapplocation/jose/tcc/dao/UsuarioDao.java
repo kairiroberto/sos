@@ -6,16 +6,18 @@ import tcc.myapplocation.jose.tcc.conection.ApacheConection;
 
 public class UsuarioDao {
 
+    private String TAG = "UsuarioDao:";
+
     public String add(String celular) {
         try {
             ApacheConection apacheConection = new ApacheConection();
             StringBuffer sb = new StringBuffer();
             sb.append("celular=" + celular);
             String p =  sb.toString();
-            Log.i("UsuarioDao", "add: " + ApacheConection.urlsos + "usuario-rest/add.html?" + p);
+            Log.i(TAG + "add:", "add: " + ApacheConection.urlsos + "usuario-rest/add.html?" + p);
             return apacheConection.post(ApacheConection.urlsos + "usuario-rest/add.html?" + p);
         } catch (Exception e) {
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "add:ERRO:", e.toString());
             return null;
         }
     }
@@ -33,10 +35,10 @@ public class UsuarioDao {
             sb.append("&cidade=" + cidade);
             sb.append("&email=" + email);
             String p =  sb.toString();
-            Log.i("UsuarioDao", "put: " + ApacheConection.urlsos + "usuario-rest/edit.html?" + p);
+            Log.i(TAG + "edit:", "put: " + ApacheConection.urlsos + "usuario-rest/edit.html?" + p);
             return apacheConection.post(ApacheConection.urlsos + "usuario-rest/edit.html?" + p);
         } catch (Exception e) {
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "edit:ERRO:", e.toString());
             return null;
         }
     }
@@ -47,10 +49,10 @@ public class UsuarioDao {
             StringBuffer sb = new StringBuffer();
             sb.append("id=" + id);
             String p = sb.toString();
-            Log.i("UsuarioDao", "delete: " + ApacheConection.urlsos + "usuario-rest/deleteid.html?" + p);
+            Log.i(TAG + "deleteId:", "delete: " + ApacheConection.urlsos + "usuario-rest/deleteid.html?" + p);
             return apacheConection.delete(ApacheConection.urlsos + "usuario-rest/deleteid.html?" + p);
         } catch (Exception e) {
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "deleteId:ERRO:", e.toString());
             return null;
         }
     }
@@ -58,10 +60,10 @@ public class UsuarioDao {
     public String get() {
         try {
             ApacheConection apacheConection = new ApacheConection();
-            Log.i("UsuarioDao", "get: " + ApacheConection.urlsos + "usuario-rest/get.html");
+            Log.i(TAG + "get:", "get: " + ApacheConection.urlsos + "usuario-rest/get.html");
             return apacheConection.get(ApacheConection.urlsos + "usuario-rest/get.html");
         } catch (Exception e) {
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "get:ERRO:", e.toString());
             return null;
         }
     }
@@ -73,10 +75,10 @@ public class UsuarioDao {
             sb.append("id=" + id);
             sb.append("&ativo=" + ativo);
             String p =  sb.toString();
-            Log.i("UsuarioDao", "put: " + ApacheConection.urlsos + "usuario-rest/editativo.html?" + p);
+            Log.i(TAG + "editativo:", "put: " + ApacheConection.urlsos + "usuario-rest/editativo.html?" + p);
             return apacheConection.post(ApacheConection.urlsos + "usuario-rest/editativo.html?" + p);
         } catch (Exception e) {
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "editativo:ERRO:", e.toString());
             return null;
         }
     }
@@ -88,10 +90,10 @@ public class UsuarioDao {
             sb.append("id=" + id);
             sb.append("&fake=" + fake);
             String p =  sb.toString();
-            Log.i("UsuarioDao", "put: " + ApacheConection.urlsos + "usuario-rest/editfake.html?" + p);
+            Log.i(TAG + "editfake:", "put: " + ApacheConection.urlsos + "usuario-rest/editfake.html?" + p);
             return apacheConection.post(ApacheConection.urlsos + "usuario-rest/editfake.html?" + p);
         } catch (Exception e) {
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "editfake:ERRO:", e.toString());
             return null;
         }
     }
@@ -102,10 +104,10 @@ public class UsuarioDao {
             StringBuffer sb = new StringBuffer();
             sb.append("id=" + id);
             String p =  sb.toString();
-            Log.i("UsuarioDao", "get: " + ApacheConection.urlsos + "usuario-rest/id.html?" + p);
+            Log.i(TAG + "id:", "get: " + ApacheConection.urlsos + "usuario-rest/id.html?" + p);
             return apacheConection.get(ApacheConection.urlsos + "usuario-rest/id.html?" + p);
         } catch (Exception e) {
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "id:ERRO:", e.toString());
             return null;
         }
     }
@@ -116,10 +118,10 @@ public class UsuarioDao {
             StringBuffer sb = new StringBuffer();
             sb.append("celular=" + celular);
             String p =  sb.toString();
-            Log.i("UsuarioDao", "get: " + ApacheConection.urlsos + "usuario-rest/celular.html?" + p);
+            Log.i(TAG + "celular:", "get: " + ApacheConection.urlsos + "usuario-rest/celular.html?" + p);
             return apacheConection.get(ApacheConection.urlsos + "usuario-rest/celular.html?" + p);
         } catch (Exception e) {
-            Log.e("RESULTADO", e.toString());
+            Log.e(TAG + "celular:ERRO:", e.toString());
             return null;
         }
     }
