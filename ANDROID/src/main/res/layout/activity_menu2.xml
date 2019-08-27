@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/bSosMenu"
+            android:id="@+id/bSosMenu23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -20,7 +20,27 @@
             android:textSize="30dp" />
 
         <Button
-            android:id="@+id/bMapaMenu"
+            android:id="@+id/bSosMenu22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#990000"
+            android:text="SOS"
+            android:textColor="@android:color/background_light"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/bSosMenu21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#990000"
+            android:text="SOS"
+            android:textColor="@android:color/background_light"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/bMapaMenu21"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -30,7 +50,17 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/bResidenciaMenu"
+            android:id="@+id/bMapaMenu22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#336600"
+            android:text="OCORRÊNCIAS"
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/bResidenciaMenu2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -40,7 +70,7 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/bMeusSosMenu"
+            android:id="@+id/bMeusSosMenu2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -50,7 +80,7 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/bPerfilMenu"
+            android:id="@+id/bPerfilMenu2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
