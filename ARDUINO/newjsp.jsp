@@ -24,7 +24,7 @@
             String sb = "...";
             try {
                 String param = request.getParameter("serie");
-                URL url = new URL("http://sos.eyglys.com.br/index.php/arduino-rest/sos.html?serie=00001");
+                URL url = new URL("<host>/index.php/arduino-rest/sos.html?serie=00001");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
